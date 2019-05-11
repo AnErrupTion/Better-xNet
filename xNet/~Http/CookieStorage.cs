@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +7,7 @@ namespace xNet
     /// <summary>
     /// Представляет коллекцию HTTP-куки.
     /// </summary>
-    public class CookieDictionary : Dictionary<string, string>
+    public class CookieStorage : Dictionary<string, string>
     {
         /// <summary>
         /// Возвращает или задает значение, указывающие, закрыты ли куки для редактирования
@@ -20,11 +20,10 @@ namespace xNet
         /// Инициализирует новый экземпляр класса <see cref="CookieDictionary"/>.
         /// </summary>
         /// <param name="isLocked">Указывает, закрыты ли куки для редактирования.</param>
-        public CookieDictionary(bool isLocked = false) : base(StringComparer.OrdinalIgnoreCase)
+        public CookieStorage(bool isLocked) : base(StringComparer.OrdinalIgnoreCase)
         {
             IsLocked = isLocked;
         }
-
 
         /// <summary>
         /// Возвращает строку, состоящую из имён и значений куки.
