@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security;
@@ -511,50 +511,6 @@ namespace xNet
             return string.Format(
                 "Mozilla/5.0 ({0}; rv:{1}) Gecko/{2} Firefox/{1}",
                 RandomWindowsVersion(), version, gecko);
-        }
-
-        /// <summary>
-        /// Генерирует случайный User-Agent от мобильного браузера Opera.
-        /// </summary>
-        /// <returns>Случайный User-Agent от мобильного браузера Opera.</returns>
-        public static string OperaMiniUserAgent()
-        {
-            string os = null;
-            string miniVersion = null;
-            string version = null;
-            string presto = null;
-
-            #region Генерация случайной версии
-
-            switch (Rand.Next(3))
-            {
-                case 0:
-                    os = "iOS";
-                    miniVersion = "7.0.73345";
-                    version = "11.62";
-                    presto = "2.10.229";
-                    break;
-
-                case 1:
-                    os = "J2ME/MIDP";
-                    miniVersion = "7.1.23511";
-                    version = "12.00";
-                    presto = "2.10.181";
-                    break;
-
-                case 2:
-                    os = "Android";
-                    miniVersion = "7.5.54678";
-                    version = "12.02";
-                    presto = "2.10.289";
-                    break;
-            }
-
-            #endregion
-
-            return string.Format(
-                "Opera/9.80 ({0}; Opera Mini/{1}/28.2555; U; ru) Presto/{2} Version/{3}",
-                os, miniVersion, presto, version);
         }
 
         #endregion
