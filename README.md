@@ -1,11 +1,15 @@
 * PL: C#
-* Version .NET: 4.0 Client Profile
+* Version .NET: 4.8
 
-xNet - a class library for .NET Framework which includes:
-* Classes for work with proxy servers: _HTTP, Socks4(a), Socks5, Chain_.
-* Classes for work with *HTTP 1.0/1.1* protocol: _keep-alive, gzip, deflate, chunked, SSL, proxies and more_.
-
-Подробное описание на русском: http://habrahabr.ru/post/146475/ <br />
+Better-xNet - a fork of original xNet library, which includes all of these fixes & more :
+- Removed Chain proxy support
+- Fixed Issue #54 (view issue on original xNet repository).
+- Removed Opera Mini user agent.
+- IgnoreProtocolErrors is now true by default.
+- Changed CookieDictionary to CookieStorage and made some minimal changes.
+- Added Send() function, better than using Post(), Get() etc..
+- Using .NET Framework 4.8 for better compatibility.
+- Fixed Issue #34 (view issue on original xNet repository).
 
 Example:
 <pre>
@@ -31,10 +35,10 @@ using (var request = new HttpRequest("http://site.com/"))
         // HTTP-header.
         .AddHeader("X-Apocalypse", "21.12.12");
 		
-    // These parameters are sent in this request.
-    request.Post("/").None();
-
-    // But in this request they will be gone.
-    request.Post("/").None();
+    // Sending a post request through the original method
+    var somerequest = request.Post("..");
+    
+    // Sending a post request through new method
+    var NEWsomerequest = request.Send(HttpMethod.POST, "..", new HttpContent(..));
 }
 </pre>
