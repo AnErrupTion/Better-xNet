@@ -1,7 +1,4 @@
-* PL: C#
-* Version .NET: 4.8
-
-Better-xNet - a fork of original xNet library, which includes all of these fixes & more :
+Better-xNet - a fork of original xNet C# library, which includes all of these fixes & more :
 - Removed Chain proxy support
 - Fixed Issue #54 (view issue on original xNet repository).
 - Removed Opera Mini user agent.
