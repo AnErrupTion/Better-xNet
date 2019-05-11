@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -427,7 +427,7 @@ namespace xNet
         /// </summary>
         /// <value>Значение по умолчанию — <see langword="false"/>.</value>
         /// <remarks>Если установить значение <see langword="true"/>, то в случае получения ошибочного ответа с кодом состояния 4xx или 5xx, не будет сгенерировано исключение. Вы можете узнать код состояния ответа с помощью свойства <see cref="HttpResponse.StatusCode"/>.</remarks>
-        public bool IgnoreProtocolErrors { get; set; }
+        public bool IgnoreProtocolErrors = true;
 
         /// <summary>
         /// Возвращает или задает значение, указывающее, необходимо ли устанавливать постоянное подключение к интернет-ресурсу.
@@ -640,7 +640,7 @@ namespace xNet
         /// </summary>
         /// <value>Значение по умолчанию — <see langword="null"/>.</value>
         /// <remarks>Куки могут изменяться ответом от HTTP-сервера. Чтобы не допустить этого, нужно установить свойство <see cref="xNet.Net.CookieDictionary.IsLocked"/> равным <see langword="true"/>.</remarks>
-        public CookieDictionary Cookies { get; set; }
+        public CookieStorage Cookies { get; set; }
 
         #endregion
 
@@ -1403,19 +1403,6 @@ namespace xNet
             return Raw(HttpMethod.POST, address, new FileContent(path));
         }
 
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="content">Контент, отправляемый HTTP-серверу.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="content"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="address"/> является пустой строкой.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public HttpResponse Post(string address, HttpContent content)
         {
             #region Проверка параметров
@@ -1430,18 +1417,6 @@ namespace xNet
             return Raw(HttpMethod.POST, address, content);
         }
 
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="content">Контент, отправляемый HTTP-серверу.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="content"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public HttpResponse Post(Uri address, HttpContent content)
         {
             #region Проверка параметров
@@ -1460,16 +1435,6 @@ namespace xNet
 
         #region Raw
 
-        /// <summary>
-        /// Отправляет запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="method">HTTP-метод запроса.</param>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="content">Контент, отправляемый HTTP-серверу, или значение <see langword="null"/>.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="address"/> равно <see langword="null"/>.</exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="address"/> является пустой строкой.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public HttpResponse Raw(HttpMethod method, string address, HttpContent content = null)
         {
             #region Проверка параметров
@@ -2040,28 +2005,16 @@ namespace xNet
 
         #endregion
 
-        /// <summary>
-        /// Закрывает соединение с HTTP-сервером.
-        /// </summary>
-        /// <remarks>Вызов данного метода равносилен вызову метода <see cref="Dispose"/>.</remarks>
         public void Close()
         {
             Dispose();
         }
 
-        /// <summary>
-        /// Освобождает все ресурсы, используемые текущим экземпляром класса <see cref="HttpRequest"/>.
-        /// </summary>
         public void Dispose()
         {
             Dispose(true);
         }
 
-        /// <summary>
-        /// Определяет, содержатся ли указанные куки.
-        /// </summary>
-        /// <param name="name">Название куки.</param>
-        /// <returns>Значение <see langword="true"/>, если указанные куки содержатся, иначе значение <see langword="false"/>.</returns>
         public bool ContainsCookie(string name)
         {
             if (Cookies == null)
@@ -2615,7 +2568,8 @@ namespace xNet
                         sslStream = new SslStream(_connectionNetworkStream, false, SslCertificateValidatorCallback);
                     }
 
-                    sslStream.AuthenticateAsClient(address.Host);
+                    //sslStream.AuthenticateAsClient(address.Host);
+                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls, false);
                     _connectionCommonStream = sslStream;
                 }
                 catch (Exception ex)
@@ -2662,7 +2616,7 @@ namespace xNet
             string query;
 
             if (_currentProxy != null &&
-                (_currentProxy.Type == ProxyType.Http || _currentProxy.Type == ProxyType.Chain))
+                (_currentProxy.Type == ProxyType.Http))
             {
                 query = Address.AbsoluteUri;
             }
@@ -2714,10 +2668,6 @@ namespace xNet
             if (_currentProxy != null && _currentProxy.Type == ProxyType.Http)
             {
                 httpProxy = _currentProxy as HttpProxyClient;
-            }
-            else if (_currentProxy != null && _currentProxy.Type == ProxyType.Chain)
-            {
-                httpProxy = FindHttpProxyInChain(_currentProxy as ChainProxyClient);
             }
 
             if (httpProxy != null)
@@ -2838,42 +2788,6 @@ namespace xNet
         }
 
         #endregion
-
-        private HttpProxyClient FindHttpProxyInChain(ChainProxyClient chainProxy)
-        {
-            HttpProxyClient foundProxy = null;
-
-            // Ищем HTTP-прокси во всех цепочках прокси.
-            // В приоритете найти прокси, который требует авторизацию.
-            foreach (var proxy in chainProxy.Proxies)
-            {
-                if (proxy.Type == ProxyType.Http)
-                {
-                    foundProxy = proxy as HttpProxyClient;
-
-                    if (!string.IsNullOrEmpty(foundProxy.Username) ||
-                        !string.IsNullOrEmpty(foundProxy.Password))
-                    {
-                        return foundProxy;
-                    }
-                }
-                else if (proxy.Type == ProxyType.Chain)
-                {
-                    HttpProxyClient foundDeepProxy =
-                        FindHttpProxyInChain(proxy as ChainProxyClient);
-
-                    if (foundDeepProxy != null &&
-                        (!string.IsNullOrEmpty(foundDeepProxy.Username) ||
-                        !string.IsNullOrEmpty(foundDeepProxy.Password)))
-                    {
-                        return foundDeepProxy;
-                    }
-                }
-            }
-
-            return foundProxy;
-        }
-
         private string ToHeadersString(Dictionary<string, string> headers)
         {
             var headersBuilder = new StringBuilder();
