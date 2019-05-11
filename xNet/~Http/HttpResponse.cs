@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -326,7 +326,7 @@ namespace xNet
         private readonly Dictionary<string, string> _headers =
             new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 
-        private readonly CookieDictionary _rawCookies = new CookieDictionary();
+        private readonly CookieStorage _rawCookies = new CookieStorage(false);
 
         #endregion
 
@@ -453,7 +453,7 @@ namespace xNet
         /// Возвращает куки, образовавшиеся в результате запроса, или установленные в <see cref="xNet.Net.HttpRequest"/>.
         /// </summary>
         /// <remarks>Если куки были установлены в <see cref="xNet.Net.HttpRequest"/> и значение свойства <see cref="xNet.Net.CookieDictionary.IsLocked"/> равно <see langword="true"/>, то будут созданы новые куки.</remarks>
-        public CookieDictionary Cookies { get; private set; }
+        public CookieStorage Cookies { get; private set; }
 
         /// <summary>
         /// Возвращает время простаивания постоянного соединения в миллисекундах.
@@ -612,11 +612,6 @@ namespace xNet
 
             #endregion
 
-            if (MessageBodyLoaded)
-            {
-                return string.Empty;
-            }
-
             var memoryStream = new MemoryStream(
                 (ContentLength == -1) ? 0 : ContentLength);
 
@@ -647,9 +642,13 @@ namespace xNet
             }
 
             MessageBodyLoaded = true;
+            string text = string.Empty;
 
-            string text = CharacterSet.GetString(
+            if (MessageBodyLoaded)
+            {
+                text = CharacterSet.GetString(
                 memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
+            }
 
             return text;
         }
@@ -978,7 +977,7 @@ namespace xNet
             if (_request.Cookies != null && !_request.Cookies.IsLocked)
                 Cookies = _request.Cookies;
             else
-                Cookies = new CookieDictionary();
+                Cookies = new CookieStorage(false);
 
             if (_receiverHelper == null)
             {
