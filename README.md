@@ -1,16 +1,19 @@
 Better-xNet - a fork of original xNet C# library, which includes all of these fixes & more :
-- Removed Chain proxy support
-- Fixed Issue #54 (view issue on original xNet repository).
-- Removed Opera Mini user agent.
-- IgnoreProtocolErrors is now true by default.
-- Changed CookieDictionary to CookieStorage and made some minimal changes.
-- Added Send() function, better than using Post(), Get() etc..
-- Using .NET Framework 4.8 for better compatibility.
-- Fixed Issue #34 (view issue on original xNet repository).
+
+Current version : 3.3.4
+Changelog :
+- Fixed the DLL not working.
+- Removed Send() function.
+- Added Edge User-Agent.
+- Updated all current User-Agents.
+- Switched to .NET Framework 4 again for better compatibility.
+- Made a minimal change in the CookieStorage class.
+- Added a new class named HttpUtils, including GetPageSource() function.
+- Fixed Issue #59 (view issue on original xNet repository).
 
 Example:
 <pre>
-using (var request = new HttpRequest("http://site.com/"))
+using (var request = new HttpRequest("https://google.com/"))
 {
     request.UserAgent = Http.ChromeUserAgent();
 	request.Proxy = Socks5ProxyClient.Parse("127.0.0.1:1080");
@@ -32,10 +35,7 @@ using (var request = new HttpRequest("http://site.com/"))
         // HTTP-header.
         .AddHeader("X-Apocalypse", "21.12.12");
 		
-    // Sending a post request through the original method
+    // Sending a post request.
     var somerequest = request.Post("..");
-    
-    // Sending a post request through new method
-    var NEWsomerequest = request.Send(HttpMethod.POST, "..", new HttpContent(..));
 }
 </pre>
