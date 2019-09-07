@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет коллекцию HTTP-куки.
@@ -20,7 +20,7 @@ namespace xNet
         /// Инициализирует новый экземпляр класса <see cref="CookieDictionary"/>.
         /// </summary>
         /// <param name="isLocked">Указывает, закрыты ли куки для редактирования.</param>
-        public CookieStorage(bool isLocked) : base(StringComparer.OrdinalIgnoreCase)
+        public CookieStorage(bool isLocked = false) : base(StringComparer.OrdinalIgnoreCase)
         {
             IsLocked = isLocked;
         }
