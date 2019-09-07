@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Win32;
 using System.Net.Security;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет статический класс, предназначенный для помощи в работе с HTTP-протоколом.
@@ -326,58 +326,32 @@ namespace xNet
         {
             string windowsVersion = RandomWindowsVersion();
 
-            string version = null;
-            string mozillaVersion = null;
-            string trident = null;
-            string otherParams = null;
+            string version = string.Empty;
+            string trident = string.Empty;
 
             #region Генерация случайной версии
 
             if (windowsVersion.Contains("NT 5.1"))
             {
                 version = "9.0";
-                mozillaVersion = "5.0";
                 trident = "5.0";
-                otherParams = ".NET CLR 2.0.50727; .NET CLR 3.5.30729";
             }
             else if (windowsVersion.Contains("NT 6.0"))
             {
                 version = "9.0";
-                mozillaVersion = "5.0";
                 trident = "5.0";
-                otherParams = ".NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.5.30729";
             }
             else
             {
-                switch (Rand.Next(3))
-                {
-                    case 0:
-                        version = "10.0";
-                        trident = "6.0";
-                        mozillaVersion = "5.0";
-                        break;
-
-                    case 1:
-                        version = "10.6";
-                        trident = "6.0";
-                        mozillaVersion = "5.0";
-                        break;
-
-                    case 2:
-                        version = "11.0";
-                        trident = "7.0";
-                        mozillaVersion = "5.0";
-                        break;
-                }
-
-                otherParams = ".NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E";
+                version = "11.0";
+                trident = "7.0";
             }
 
             #endregion
 
             return string.Format(
-                "Mozilla/{0} (compatible; MSIE {1}; {2}; Trident/{3}; {4})",
-                mozillaVersion, version, windowsVersion, trident, otherParams);
+                "Mozilla/5.0 ({0}; WOW64; Trident/{1}; rv:{2}) like Gecko",
+                windowsVersion, trident, version);
         }
 
         /// <summary>
@@ -386,39 +360,42 @@ namespace xNet
         /// <returns>Случайный User-Agent от браузера Opera.</returns>
         public static string OperaUserAgent()
         {
-            string version = null;
-            string presto = null;
+            string windowsVersion = RandomWindowsVersion();
+
+            string chromeVersion = string.Empty;
+            string operaVersion = string.Empty;
+            string systemType = string.Empty;
 
             #region Генерация случайной версии
 
-            switch (Rand.Next(4))
+            if (windowsVersion.Contains("NT 5.1") || windowsVersion.Contains("NT 6.0"))
             {
-                case 0:
-                    version = "12.16";
-                    presto = "2.12.388";
-                    break;
+                chromeVersion = "49.0.2623.112";
+                operaVersion = "36.0.2130.80";
+                systemType = "WOW64";
+            }
+            else
+            {
+                systemType = "Win64; x64";
+                switch (Rand.Next(2))
+                {
+                    case 0:
+                        chromeVersion = "76.0.3809.132";
+                        operaVersion = "63.0.3368.71";
+                        break;
 
-                case 1:
-                    version = "12.14";
-                    presto = "2.12.388";
-                    break;
-
-                case 2:
-                    version = "12.02";
-                    presto = "2.10.289";
-                    break;
-
-                case 3:
-                    version = "12.00";
-                    presto = "2.10.181";
-                    break;
+                    case 1:
+                        chromeVersion = "76.0.3809.132";
+                        operaVersion = "63.0.3368.54789";
+                        break;
+                }
             }
 
             #endregion
 
             return string.Format(
-                "Opera/9.80 ({0}); U) Presto/{1} Version/{2}",
-                RandomWindowsVersion(), presto, version);
+                "Mozilla/5.0 ({0}; {1}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{2} Safari/537.36 OPR/{3}",
+                windowsVersion, systemType, chromeVersion, operaVersion);
         }
 
         /// <summary>
@@ -427,44 +404,25 @@ namespace xNet
         /// <returns>Случайный User-Agent от браузера Chrome.</returns>
         public static string ChromeUserAgent()
         {
-            string version = null;
-            string safari = null;
+            string windowsVersion = RandomWindowsVersion();
+
+            string version = string.Empty;
+            string safari = string.Empty;
 
             #region Генерация случайной версии
 
-            switch (Rand.Next(5))
+            switch (Rand.Next(1))
             {
                 case 0:
-                    version = "41.0.2228.0";
-                    safari = "537.36";
-                    break;
-
-                case 1:
-                    version = "41.0.2227.1";
-                    safari = "537.36";
-                    break;
-
-                case 2:
-                    version = "41.0.2224.3";
-                    safari = "537.36";
-                    break;
-
-                case 3:
-                    version = "41.0.2225.0";
-                    safari = "537.36";
-                    break;
-
-                case 4:
-                    version = "41.0.2226.0";
-                    safari = "537.36";
+                    version = "76.0.3809.132";
                     break;
             }
 
             #endregion
 
             return string.Format(
-                "Mozilla/5.0 ({0}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{1} Safari/{2}",
-                RandomWindowsVersion(), version, safari);
+                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{1} Safari/537.36",
+                windowsVersion, version);
         }
 
         /// <summary>
@@ -473,35 +431,17 @@ namespace xNet
         /// <returns>Случайный User-Agent от браузера Firefox.</returns>
         public static string FirefoxUserAgent()
         {
-            string gecko = null;
-            string version = null;
+            string windowsVersion = RandomWindowsVersion();
+
+            string gecko = string.Empty;
+            string version = string.Empty;
 
             #region Генерация случайной версии
 
-            switch (Rand.Next(5))
+            switch (Rand.Next(1))
             {
                 case 0:
-                    version = "36.0";
-                    gecko = "20100101";
-                    break;
-
-                case 1:
-                    version = "33.0";
-                    gecko = "20100101";
-                    break;
-
-                case 2:
-                    version = "31.0";
-                    gecko = "20100101";
-                    break;
-
-                case 3:
-                    version = "29.0";
-                    gecko = "20120101";
-                    break;
-
-                case 4:
-                    version = "28.0";
+                    version = "69.0";
                     gecko = "20100101";
                     break;
             }
@@ -509,8 +449,32 @@ namespace xNet
             #endregion
 
             return string.Format(
-                "Mozilla/5.0 ({0}; rv:{1}) Gecko/{2} Firefox/{1}",
-                RandomWindowsVersion(), version, gecko);
+                "Mozilla/5.0 ({0}; Win64; x64; rv:{1}) Gecko/{2} Firefox/{1}",
+                windowsVersion, version, gecko);
+        }
+
+        public static string EdgeUserAgent()
+        {
+            string windowsVersion = RandomWindowsVersion();
+
+            string edgeVersion = string.Empty;
+            string chromeVersion = string.Empty;
+
+            #region Генерация случайной версии
+
+            switch (Rand.Next(1))
+            {
+                case 0:
+                    chromeVersion = "70.0.3538.102";
+                    edgeVersion = "18.18362";
+                    break;
+            }
+
+            #endregion
+
+            return string.Format(
+                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{1} Safari/537.36 Edge/{2}",
+                windowsVersion, chromeVersion, edgeVersion);
         }
 
         #endregion
@@ -566,7 +530,7 @@ namespace xNet
         {
             string windowsVersion = "Windows NT ";
 
-            switch (Rand.Next(4))
+            switch (Rand.Next(5))
             {
                 case 0:
                     windowsVersion += "5.1"; // Windows XP
@@ -583,14 +547,13 @@ namespace xNet
                 case 3:
                     windowsVersion += "6.2"; // Windows 8
                     break;
+
+                case 4:
+                    windowsVersion += "10.0"; // Windows 10
+                    break;
             }
 
-            if (Rand.NextDouble() < 0.2)
-            {
-                windowsVersion += "; WOW64"; // 64-битная версия.
-            }
-
-            return windowsVersion;
+            return windowsVersion += ";";
         }
 
         #endregion
