@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5D25D06E-0D35-42EF-BBA2-D5DE6E06CD04}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Better_xNet</RootNamespace>
+    <AssemblyName>Better-xNet</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>bin\Debug\Better-xNet.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>bin\Release\Better-xNet.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Better-xNet\~Http\HttpUtils.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Better-xNet\RequestParams.cs" />
+    <Compile Include="Better-xNet\~Http\HttpExceptionStatus.cs" />
+    <Compile Include="Better-xNet\~Http\~Helpers\HttpHelper.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\BytesContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\FileContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\FormUrlEncodedContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\HttpContent.cs" />
+    <Compile Include="Better-xNet\~Http\HttpStatusCode.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\MultipartContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\StreamContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Content\StringContent.cs" />
+    <Compile Include="Better-xNet\~Http\~Misc\DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="Better-xNet\~Http\HttpHeader.cs" />
+    <Compile Include="Better-xNet\~Http\~Misc\UploadProgressChangedEventArgs.cs" />
+    <Compile Include="Better-xNet\~Internal\ExceptionHelper.cs" />
+    <Compile Include="Better-xNet\Html.cs" />
+    <Compile Include="Better-xNet\NetException.cs" />
+    <Compile Include="Better-xNet\WinInet.cs" />
+    <Compile Include="Better-xNet\~Http\HttpMethod.cs" />
+    <Compile Include="Better-xNet\~Http\CookieStorage.cs" />
+    <Compile Include="Better-xNet\~Proxy\HttpProxyClient.cs" />
+    <Compile Include="Better-xNet\~Http\HttpException.cs" />
+    <Compile Include="Better-xNet\~Http\HttpRequest.cs" />
+    <Compile Include="Better-xNet\~Http\HttpResponse.cs" />
+    <Compile Include="Better-xNet\~Http\Http.cs" />
+    <Compile Include="Better-xNet\~Proxy\ProxyClient.cs" />
+    <Compile Include="Better-xNet\~Proxy\ProxyType.cs" />
+    <Compile Include="Better-xNet\~Proxy\ProxyException.cs" />
+    <Compile Include="Better-xNet\~Internal\ProxyHelper.cs" />
+    <Compile Include="Better-xNet\~Internal\SafeNativeMethods.cs" />
+    <Compile Include="Better-xNet\~Proxy\Socks4aProxyClient.cs" />
+    <Compile Include="Better-xNet\~Proxy\Socks4ProxyClient.cs" />
+    <Compile Include="Better-xNet\~Proxy\Socks5ProxyClient.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
