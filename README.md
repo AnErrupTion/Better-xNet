@@ -1,7 +1,6 @@
 Better-xNet - a fork of original xNet C# library, which includes all of these fixes & more :
 
 Current version : 3.3.4
-Changelog :
 - Fixed the DLL not working.
 - Removed Send() function.
 - Added Edge User-Agent.
