@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,192 +118,192 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ArgumentException_HttpRequest_SetNotAvailableHeader" xml:space="preserve">
-    <value>Значение заголовка '{0}' можно задать только с помощью специального свойства.</value>
+    <value>The value of the header '{0}' can only be set using a special property.</value>
   </data>
   <data name="ArgumentException_MultiThreading_BegIndexRangeMoreEndIndex" xml:space="preserve">
-    <value>Начальный индекс диапазона не может быть больше конечного индекса.</value>
+    <value>The starting index of the range cannot be greater than the ending index.</value>
   </data>
   <data name="ArgumentException_OnlyAbsoluteUri" xml:space="preserve">
-    <value>Допустимо использовать только абсолютный URI.</value>
+    <value>Only an absolute URI is allowed.</value>
   </data>
   <data name="ArgumentOutOfRangeException_CanNotBeLess" xml:space="preserve">
-    <value>Значение параметра не может быть меньше {0}.</value>
+    <value>The parameter value cannot be less than {0}.</value>
   </data>
   <data name="ArgumentOutOfRangeException_CanNotBeLessOrGreater" xml:space="preserve">
-    <value>Значение параметра не может быть меньше {0} или больше {1}.</value>
+    <value>The parameter value cannot be less than {0} or greater than {1}.</value>
   </data>
   <data name="ArgumentOutOfRangeException_StringLengthCanNotBeMore" xml:space="preserve">
-    <value>Длина строки не должна быть больше {0} символов.</value>
+    <value>The line length must not exceed {0} characters.</value>
   </data>
   <data name="FormatException_ProxyClient_WrongPort" xml:space="preserve">
-    <value>Неверно задан порт.</value>
+    <value>Invalid port specified.</value>
   </data>
   <data name="HttpException_ClientError" xml:space="preserve">
-    <value>Ошибка на стороне клиента. Код состояния: {0}</value>
+    <value>Error on the client side. Status Code: {0}</value>
   </data>
   <data name="HttpException_ConnectTimeout" xml:space="preserve">
-    <value>Вышло время ожидания подключения к HTTP-серверу '{0}'.</value>
+    <value>Timed out waiting for connection to HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_FailedConnect" xml:space="preserve">
-    <value>Не удалось соединиться с HTTP-сервером '{0}'.</value>
+    <value>Failed to connect to HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_FailedGetHostAddresses" xml:space="preserve">
-    <value>Не удалось получить IP-адреса узла '{0}'.</value>
+    <value>Failed to get IP address of host '{0}'.</value>
   </data>
   <data name="HttpException_FailedReceiveMessageBody" xml:space="preserve">
-    <value>Не удалось загрузить тело сообщения ответа от HTTP-сервера '{0}'.</value>
+    <value>Failed to load response message body from HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_FailedReceiveResponse" xml:space="preserve">
-    <value>Не удалось загрузить ответ от HTTP-сервера '{0}'.</value>
+    <value>Failed to load response from HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_FailedSendRequest" xml:space="preserve">
-    <value>Не удалось отправить запрос HTTP-серверу '{0}'.</value>
+    <value>Failed to send request to HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_FailedSslConnect" xml:space="preserve">
-    <value>Не удалось установить SSL-соединение с HTTP-сервером '{0}'.</value>
+    <value>Failed to establish SSL connection with HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_WaitDataTimeout" xml:space="preserve">
-    <value>Вышло время ожидания данных от HTTP-сервера '{0}'.</value>
+    <value>Timed out waiting for data from the HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_ReceivedEmptyResponse" xml:space="preserve">
-    <value>Получен пустой ответ от HTTP-сервера '{0}'.</value>
+    <value>An empty response was received from the HTTP server '{0}'.</value>
   </data>
   <data name="HttpException_SeverError" xml:space="preserve">
-    <value>Ошибка на стороне сервера. Код состояния: {0}</value>
+    <value>Server side error. Status Code: {0}</value>
   </data>
   <data name="HttpException_WrongCookie" xml:space="preserve">
-    <value>Получен неверный кукис '{0}' от HTTP-сервера '{1}'.</value>
+    <value>Invalid cookie received '{0}' from HTTP server '{1}'.</value>
   </data>
   <data name="HttpException_WrongHeader" xml:space="preserve">
-    <value>Получен неверный заголовок '{0}' от HTTP-сервера '{1}'.</value>
+    <value>Received invalid header '{0}' from HTTP server '{1}'.</value>
   </data>
   <data name="InvalidOperationException_HttpResponse_HasError" xml:space="preserve">
-    <value>Невозможно выполнить метод, так как при получении ответа произошла ошибка.</value>
+    <value>The method cannot be executed because an error occurred while receiving a response.</value>
   </data>
   <data name="InvalidOperationException_NotSupportedEncodingFormat" xml:space="preserve">
-    <value>Получен неподдерживаемый формат кодирования: {0}</value>
+    <value>An unsupported encoding format was received: {0}</value>
   </data>
   <data name="InvalidOperationException_ProxyClient_WrongHost" xml:space="preserve">
-    <value>Хост не может быть неопределённым или иметь нулевую длину.</value>
+    <value>The host cannot be undefined or have zero length.</value>
   </data>
   <data name="InvalidOperationException_ProxyClient_WrongPassword" xml:space="preserve">
-    <value>Длина пароля не может быть больше 255 символов.</value>
+    <value>Password cannot be longer than 255 characters.</value>
   </data>
   <data name="InvalidOperationException_ProxyClient_WrongPort" xml:space="preserve">
-    <value>Порт не может быть меньше 1 или больше 65535.</value>
+    <value>The port cannot be less than 1 or more than 65535.</value>
   </data>
   <data name="InvalidOperationException_ProxyClient_WrongUsername" xml:space="preserve">
-    <value>Длина имени пользователя не может быть больше 255 символов.</value>
+    <value>The username cannot exceed 255 characters.</value>
   </data>
   <data name="ProxyException_CommandError" xml:space="preserve">
-    <value>{0} Прокси-сервер '{1}'.</value>
+    <value>{0} Proxy server '{1}'.</value>
   </data>
   <data name="ProxyException_ConnectTimeout" xml:space="preserve">
-    <value>Вышло время ожидания подключения к прокси-серверу '{0}'.</value>
+    <value>Timed out waiting for connection to proxy server '{0}'.</value>
   </data>
   <data name="ProxyException_Error" xml:space="preserve">
-    <value>Произошла ошибка при работе с прокси-сервером '{0}'.</value>
+    <value>An error occurred while working with the proxy server '{0}'.</value>
   </data>
   <data name="ProxyException_FailedConnect" xml:space="preserve">
-    <value>Не удалось соединиться с прокси-сервером '{0}'.</value>
+    <value>Failed to connect to proxy server '{0}'.</value>
   </data>
   <data name="ProxyException_FailedGetHostAddresses" xml:space="preserve">
-    <value>Не удалось получить IP-адреса узла '{0}'.</value>
+    <value>Failed to get IP address of host '{0}'.</value>
   </data>
   <data name="ProxyException_NotSupportedAddressType" xml:space="preserve">
-    <value>Хост '{0}' типа '{1}' не поддерживает используемый тип адресса. Поддерживаются следующие типы: InterNetwork и InterNetworkV6. Прокси-сервер '{2}'.</value>
+    <value>The host '{0}' of type '{1}' does not support the type of address used. The following types are supported: InterNetwork and InterNetworkV6. Proxy server '{2}'.</value>
   </data>
   <data name="ProxyException_ReceivedEmptyResponse" xml:space="preserve">
-    <value>Получен пустой ответ от прокси-сервера '{0}'.</value>
+    <value>An empty response was received from the proxy server '{0}'.</value>
   </data>
   <data name="ProxyException_ReceivedWrongResponse" xml:space="preserve">
-    <value>Получен ошибочный ответ от прокси-сервера '{0}'.</value>
+    <value>An incorrect response was received from the proxy server '{0}'.</value>
   </data>
   <data name="ProxyException_ReceivedWrongStatusCode" xml:space="preserve">
-    <value>Получен неверный код статуса '{0}' от прокси-сервера '{1}'.</value>
+    <value>Received invalid status code '{0}' from proxy server '{1}'.</value>
   </data>
   <data name="ProxyException_Socks5_FailedAuthOn" xml:space="preserve">
-    <value>Не удалось выполнить аутентификацию на прокси-сервере '{0}'.</value>
+    <value>Failed to authenticate with proxy server '{0}'.</value>
   </data>
   <data name="Socks4_CommandReplyRequestRejectedCannotConnectToIdentd" xml:space="preserve">
-    <value>Запрос не удался, потому-что не запущен identd (или не доступен с сервера).</value>
+    <value>The request failed because identd is not running (or is not accessible from the server).</value>
   </data>
   <data name="Socks4_CommandReplyRequestRejectedDifferentIdentd" xml:space="preserve">
-    <value>Запрос не удался, поскольку клиентский identd не может подтвердить идентификатор пользователя в запросе.</value>
+    <value>The request failed because the client identd cannot confirm the user ID in the request.</value>
   </data>
   <data name="Socks4_CommandReplyRequestRejectedOrFailed" xml:space="preserve">
-    <value>Запрос отклонён или ошибочен.</value>
+    <value>Request denied or failed.</value>
   </data>
   <data name="Socks5_AuthMethodReplyNoAcceptableMethods" xml:space="preserve">
-    <value>Предложенные методы аутентификации не поддерживаются.</value>
+    <value>Suggested authentication methods are not supported.</value>
   </data>
   <data name="Socks5_CommandReplyAddressTypeNotSupported" xml:space="preserve">
-    <value>Тип адреса не поддерживается.</value>
+    <value>The address type is not supported.</value>
   </data>
   <data name="Socks5_CommandReplyCommandNotSupported" xml:space="preserve">
-    <value>Команда не поддерживается, либо ошибка протокола.</value>
+    <value>Command not supported or protocol error.</value>
   </data>
   <data name="Socks5_CommandReplyConnectionNotAllowedByRuleset" xml:space="preserve">
-    <value>Соединение запрещено набором правил.</value>
+    <value>Connection is denied by a set of rules.</value>
   </data>
   <data name="Socks5_CommandReplyConnectionRefused" xml:space="preserve">
-    <value>Отказ в соединении.</value>
+    <value>Denial of connection.</value>
   </data>
   <data name="Socks5_CommandReplyGeneralSocksServerFailure" xml:space="preserve">
-    <value>Ошибка SOCKS-сервера.</value>
+    <value>SOCKS server error.</value>
   </data>
   <data name="Socks5_CommandReplyHostUnreachable" xml:space="preserve">
-    <value>Хост недоступен.</value>
+    <value>The host is unavailable.</value>
   </data>
   <data name="Socks5_CommandReplyNetworkUnreachable" xml:space="preserve">
-    <value>Сеть недоступна.</value>
+    <value>The network is unavailable.</value>
   </data>
   <data name="Socks5_CommandReplyTTLExpired" xml:space="preserve">
-    <value>Истёк TTL.</value>
+    <value>East TTL.</value>
   </data>
   <data name="Socks_UnknownError" xml:space="preserve">
-    <value>Неизвестная ошибка.</value>
+    <value>Unknown error.</value>
   </data>
   <data name="ArgumentException_EmptyString" xml:space="preserve">
-    <value>Значение параметра не может быть строкой нулевой длины.</value>
+    <value>The parameter value cannot be a string of zero length.</value>
   </data>
   <data name="ArgumentOutOfRangeException_StringHelper_MoreLengthString" xml:space="preserve">
-    <value>Начальная позиция не может быть больше длины строки.</value>
+    <value>The starting position cannot be longer than the line length.</value>
   </data>
   <data name="DirectoryNotFoundException_DirectoryNotFound" xml:space="preserve">
-    <value>Путь указывает на несуществующую директорию {0}.</value>
+    <value>The path points to a non-existent directory {0}.</value>
   </data>
   <data name="HttpException_Default" xml:space="preserve">
-    <value>Произошла ошибка при работе с HTTP-протоколом.</value>
+    <value>An error occurred while working with the HTTP protocol.</value>
   </data>
   <data name="NetException_Default" xml:space="preserve">
-    <value>Произошла ошибка при работе с сетью.</value>
+    <value>An error occurred while working with the network.</value>
   </data>
   <data name="ProxyException_Default" xml:space="preserve">
-    <value>Произошла ошибка при работе с прокси.</value>
+    <value>An error occurred while working with the proxy.</value>
   </data>
   <data name="HttpException_ReceivedWrongResponse" xml:space="preserve">
-    <value>Получен ошибочный ответ от HTTP-сервера '{0}'.</value>
+    <value>An error response was received from the HTTP server '{0}'.</value>
   </data>
   <data name="ProxyException_WaitDataTimeout" xml:space="preserve">
-    <value>Вышло время ожидания данных от прокси-сервера '{0}'.</value>
+    <value>Timed out waiting for data from the proxy server '{0}'.</value>
   </data>
   <data name="HttpException_LimitRedirections" xml:space="preserve">
-    <value>Превышено допустимое количество последовательных переадресаций.</value>
+    <value>The number of consecutive redirects exceeded.</value>
   </data>
   <data name="HttpException_WrongChunkedBlockLength" xml:space="preserve">
-    <value>Получен неверный размер блока данных при использовании Chunked: {0}</value>
+    <value>Received invalid data block size when using Chunked: {0}</value>
   </data>
   <data name="InvalidOperationException_ChainProxyClient_NotProxies" xml:space="preserve">
-    <value>Не задано ни одного прокси-сервера для цепочки.</value>
+    <value>No proxies were set for the chain.</value>
   </data>
   <data name="ArgumentOutOfRangeException_CanNotBeGreater" xml:space="preserve">
-    <value>Значение параметра не может быть больше {0}.</value>
+    <value>The parameter value cannot be greater than {0}.</value>
   </data>
   <data name="ArgumentException_CanNotReadOrSeek" xml:space="preserve">
-    <value>Поток не поддерживает чтение или перемещение позиции.</value>
+    <value>The stream does not support reading or moving a position.</value>
   </data>
   <data name="ArgumentException_WrongPath" xml:space="preserve">
-    <value>Путь является пустой строкой, содержит только пробелы или содержит недопустимые символы.</value>
+    <value>The path is an empty string, contains only spaces, or contains invalid characters.</value>
   </data>
 </root>
