@@ -530,7 +530,7 @@ namespace Better_xNet
         {
             string windowsVersion = "Windows NT ";
 
-            switch (Rand.Next(5))
+            switch (Rand.Next(6))
             {
                 case 0:
                     windowsVersion += "5.1"; // Windows XP
@@ -549,6 +549,10 @@ namespace Better_xNet
                     break;
 
                 case 4:
+                    windowsVersion += "6.3"; // Windows 8.1
+                    break;
+
+                case 5:
                     windowsVersion += "10.0"; // Windows 10
                     break;
             }
