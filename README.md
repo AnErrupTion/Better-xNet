@@ -1,14 +1,9 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.3.4
-- Fixed the DLL not working.
-- Removed Send() function.
-- Added Edge User-Agent.
-- Updated all current User-Agents.
-- Switched to .NET Framework 4 again for better compatibility.
-- Made a minimal change in the CookieStorage class.
-- Added a new class named HttpUtils, including GetPageSource() function.
-- Fixed Issue #59 (view issue on original xNet repository).
+Current version : 3.3.5
+- Renamed a folder in the project (just to match the GitHub code).
+- Added Windows 8.1 version for the User-Agents.
+- Translated all exceptions messages to English.
 
 Example:
 <pre>
