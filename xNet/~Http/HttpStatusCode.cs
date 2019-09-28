@@ -1,5 +1,5 @@
-﻿
-namespace xNet
+
+namespace Better_xNet
 {
     /// <summary>
     /// Определяет коды состояния HTTP.
@@ -10,6 +10,8 @@ namespace xNet
 
         Continue = 100,
         SwitchingProtocols = 101,
+        Processing = 102,
+        EarlyHints = 103,
 
         OK = 200,
         Created = 201,
@@ -18,24 +20,23 @@ namespace xNet
         NoContent = 204,
         ResetContent = 205,
         PartialContent = 206,
+        MultiStatus = 207,
+        AlreadyReported = 208,
+        IMUsed = 226,
 
         MultipleChoices = 300,
-        Ambiguous = 300,
         MovedPermanently = 301,
-        Moved = 301,
         Found = 302,
-        Redirect = 302,
         SeeOther = 303,
-        RedirectMethod = 303,
         NotModified = 304,
-        UseProxy = 305,
+        UseProxy = 305, // WARNING : DEPRECATED API
         Unused = 306,
         TemporaryRedirect = 307,
-        RedirectKeepVerb = 307,
+        PermanentRedirect = 308,
 
         BadRequest = 400,
         Unauthorized = 401,
-        PaymentRequired = 402,
+        PaymentRequired = 402, // WARNING : EXPERIMENTAL API
         Forbidden = 403,
         NotFound = 404,
         MethodNotAllowed = 405,
@@ -51,6 +52,17 @@ namespace xNet
         UnsupportedMediaType = 415,
         RequestedRangeNotSatisfiable = 416,
         ExpectationFailed = 417,
+        ImATeapot = 418,
+        MisdirectedRequest = 421,
+        UnprocessableEntity = 422,
+        Locked = 423,
+        FailedDependency = 424,
+        TooEarly = 425,
+        UpgradeRequired = 426,
+        PreconditionRequired = 428,
+        TooManyRequests = 429,
+        RequestHeaderFieldsTooLarge = 431,
+        UnavailableForLegalReasons = 451,
 
         InternalServerError = 500,
         NotImplemented = 501,
@@ -58,5 +70,9 @@ namespace xNet
         ServiceUnavailable = 503,
         GatewayTimeout = 504,
         HttpVersionNotSupported = 505,
+        VariantAlsoNegotiates = 506,
+        InsufficientStorage = 507,
+        LoopDetected = 510,
+        NetworkAuthenticationRequired = 511
     }
 }
