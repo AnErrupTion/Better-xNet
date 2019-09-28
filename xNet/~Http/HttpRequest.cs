@@ -2569,7 +2569,7 @@ namespace Better_xNet
                     }
 
                     //sslStream.AuthenticateAsClient(address.Host);
-                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls, false);
+                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls12, false);
                     _connectionCommonStream = sslStream;
                 }
                 catch (Exception ex)
