@@ -406,23 +406,9 @@ namespace Better_xNet
         {
             string windowsVersion = RandomWindowsVersion();
 
-            string version = string.Empty;
-            string safari = string.Empty;
-
-            #region Генерация случайной версии
-
-            switch (Rand.Next(1))
-            {
-                case 0:
-                    version = "76.0.3809.132";
-                    break;
-            }
-
-            #endregion
-
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{1} Safari/537.36",
-                windowsVersion, version);
+                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+                windowsVersion);
         }
 
         /// <summary>
@@ -433,48 +419,42 @@ namespace Better_xNet
         {
             string windowsVersion = RandomWindowsVersion();
 
-            string gecko = string.Empty;
-            string version = string.Empty;
-
-            #region Генерация случайной версии
-
-            switch (Rand.Next(1))
-            {
-                case 0:
-                    version = "69.0";
-                    gecko = "20100101";
-                    break;
-            }
-
-            #endregion
-
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64; rv:{1}) Gecko/{2} Firefox/{1}",
-                windowsVersion, version, gecko);
+                "Mozilla/5.0 ({0}; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0",
+                windowsVersion);
         }
 
         public static string EdgeUserAgent()
         {
             string windowsVersion = RandomWindowsVersion();
 
-            string edgeVersion = string.Empty;
-            string chromeVersion = string.Empty;
-
-            #region Генерация случайной версии
-
-            switch (Rand.Next(1))
-            {
-                case 0:
-                    chromeVersion = "70.0.3538.102";
-                    edgeVersion = "18.18362";
-                    break;
-            }
-
-            #endregion
-
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{1} Safari/537.36 Edge/{2}",
-                windowsVersion, chromeVersion, edgeVersion);
+                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362",
+                windowsVersion);
+        }
+
+        public static string BraveUserAgent()
+        {
+            string windowsVersion = RandomWindowsVersion();
+
+            return string.Format("Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/76.0.3809.132 Safari/537.36",
+                windowsVersion);
+        }
+
+        public static string ChromiumEdgeUserAgent()
+        {
+            string windowsVersion = RandomWindowsVersion();
+
+            return string.Format("Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.34 Safari/537.36 Edg/78.0.276.11",
+                windowsVersion);
+        }
+
+        public static string OperaMiniUserAgent()
+        {
+            string androidVersion = RandomAndroidVersion();
+
+            return string.Format("Mozilla/5.0 (Linux; U; {0}; SM-J710F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.73 Mobile Safari/537.36 OPR/44.1.2254.143214",
+                androidVersion);
         }
 
         #endregion
@@ -557,7 +537,73 @@ namespace Better_xNet
                     break;
             }
 
-            return windowsVersion += ";";
+            return windowsVersion;
+        }
+
+        private static string RandomAndroidVersion()
+        {
+            string androidVersion = "Android ";
+
+            switch (Rand.Next(14))
+            {
+                case 0:
+                    androidVersion += "4.1"; // Jelly Bean
+                    break;
+
+                case 1:
+                    androidVersion += "4.3.1"; // Jelly Bean
+                    break;
+
+                case 2:
+                    androidVersion += "4.4"; // KitKat
+                    break;
+
+                case 3:
+                    androidVersion += "4.4.4"; // KitKat
+                    break;
+
+                case 4:
+                    androidVersion += "5.0"; // Lollipop
+                    break;
+
+                case 5:
+                    androidVersion += "5.1.1"; // Lollipop
+                    break;
+
+                case 6:
+                    androidVersion += "6.0"; // Marshmallow
+                    break;
+
+                case 7:
+                    androidVersion += "6.0.1"; // Marshmallow
+                    break;
+
+                case 8:
+                    androidVersion += "7.0"; // Nougat
+                    break;
+
+                case 9:
+                    androidVersion += "7.1.2"; // Nougat
+                    break;
+
+                case 10:
+                    androidVersion += "8.0"; // Oreo
+                    break;
+
+                case 11:
+                    androidVersion += "8.1"; // Oreo
+                    break;
+
+                case 12:
+                    androidVersion += "9.0"; // Pie
+                    break;
+
+                case 13:
+                    androidVersion += "10.0"; // Android 10
+                    break;
+            }
+
+            return androidVersion;
         }
 
         #endregion
