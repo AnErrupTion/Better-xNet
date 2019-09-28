@@ -142,6 +142,15 @@ namespace Better_xNet {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à &apos;minValue&apos; must be lower than &apos;maxExclusiveValue&apos;..
+        /// </summary>
+        internal static string ArgumentOutOfRangeException_Randoms_MinMoreThanMax {
+            get {
+                return ResourceManager.GetString("ArgumentOutOfRangeException_Randoms_MinMoreThanMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à The starting position cannot be longer than the line length..
         /// </summary>
         internal static string ArgumentOutOfRangeException_StringHelper_MoreLengthString {
@@ -345,6 +354,24 @@ namespace Better_xNet {
         internal static string InvalidOperationException_HttpResponse_HasError {
             get {
                 return ResourceManager.GetString("InvalidOperationException_HttpResponse_HasError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unable to start a new job while an asynchronous operation is in progress..
+        /// </summary>
+        internal static string InvalidOperationException_MultiThreading_CannotStart {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_MultiThreading_CannotStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Unable to set value during asynchronous action..
+        /// </summary>
+        internal static string InvalidOperationException_NetProcesses_CannotSetValue {
+            get {
+                return ResourceManager.GetString("InvalidOperationException_NetProcesses_CannotSetValue", resourceCulture);
             }
         }
         
