@@ -306,4 +306,13 @@
   <data name="ArgumentException_WrongPath" xml:space="preserve">
     <value>The path is an empty string, contains only spaces, or contains invalid characters.</value>
   </data>
+  <data name="ArgumentOutOfRangeException_Randoms_MinMoreThanMax" xml:space="preserve">
+    <value>'minValue' must be lower than 'maxExclusiveValue'.</value>
+  </data>
+  <data name="InvalidOperationException_MultiThreading_CannotStart" xml:space="preserve">
+    <value>Unable to start a new job while an asynchronous operation is in progress.</value>
+  </data>
+  <data name="InvalidOperationException_NetProcesses_CannotSetValue" xml:space="preserve">
+    <value>Unable to set value during asynchronous action.</value>
+  </data>
 </root>
