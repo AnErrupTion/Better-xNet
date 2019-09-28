@@ -12,31 +12,20 @@ PayPal : **erruption.selly@gmail.com** - Bitcoin : **1Q8dZDTDxzJ1YLbm4fYfEK8KvDq
 
 Also check out my [YouTube channel](https://www.youtube.com/c/B3RAPSoftwares)!
 
-Example:
+Example :
 <pre>
-using (var request = new HttpRequest("https://google.com/"))
+using (var req = new HttpRequest())
 {
-    request.UserAgent = Http.EdgeUserAgent();
-	request.Proxy = Socks5ProxyClient.Parse("127.0.0.1:1080");
+   req.UserAgent = Http.EdgeUserAgent();
+   req.Proxy = Socks4ProxyClient.Parse("191.7.50.119:4145");
+   req.KeepAlive = true;
+   // Note that req.IgnoreProtocolErrors is already true by default.
 
-    request
-        // Parameters URL-address.
-        .AddUrlParam("data1", "value1")
-        .AddUrlParam("data2", "value2")
-
-        // Parameters 'x-www-form-urlencoded'.
-        .AddParam("data1", "value1")
-        .AddParam("data2", "value2")
-        .AddParam("data2", "value2")
-
-        // Multipart data.
-        .AddField("data1", "value1")
-        .AddFile("game_code", @"C:\orion.zip")
-
-        // HTTP-header.
-        .AddHeader("X-Apocalypse", "21.12.12");
-		
-    // Sending a post request.
-    var somerequest = request.Post("..");
+   req.Get("https://httpbin.org/get").ToString(); // Sending a GET request without any parameters
+   
+   req.AddParam("email", "erruption.selly@gmail.com");
+   req.AddParam("password", "c0ns1d3rD0nat1ngM3!");
+   
+   req.Post("https://httpbin.org/post").ToString(); // Sending a POST request with parameters "email" and "password".
 }
 </pre>
