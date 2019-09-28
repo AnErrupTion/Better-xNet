@@ -6,8 +6,8 @@ using System.Resources;
 // Управление общими сведениями о сборке осуществляется с помощью 
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
-[assembly: AssemblyTitle("Better-xNet")]
-[assembly: AssemblyDescription("A fork of the original xNet libary.")]
+[assembly: AssemblyTitle("A fork of the original xNet libary.")]
+[assembly: AssemblyDescription("Better-xNet")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Better-xNet")]
@@ -33,6 +33,6 @@ using System.Resources;
 // Можно задать все значения или принять номер построения и номер редакции по умолчанию, 
 // используя "*", как показано ниже:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.3.3.5")]
-[assembly: AssemblyFileVersion("3.3.3.5")]
+[assembly: AssemblyVersion("3.3.3.6")]
+[assembly: AssemblyFileVersion("3.3.3.6")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
