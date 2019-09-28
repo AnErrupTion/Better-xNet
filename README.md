@@ -1,11 +1,9 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
 Current version : 3.3.7
-# IMPORTANT :
-- Fixed all User-Agents.
-- Switched to .NET Framework 4.5 to fix issue #59.
-
-# Other :
+# Changelog :
+- **Fixed all User-Agents.**
+- **Switched to .NET Framework 4.5 to fix issue #59.**
 - Added all missing HTTP Status Codes (102, 103, 207, 208, 226, 308, 418 -> 429, 431, 451, 506 -> 508, 510, 511) and removed duplicate ones (including some of the Pull Request #58).
 - Moved all events (DownloadProgressChangedEventArgs, MultiThreadingProgressEventArgs, etc..) to "xNet.Events".
 - Removed the HttpHelper class, it was useless.
