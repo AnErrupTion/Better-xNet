@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Better_xNet</RootNamespace>
     <AssemblyName>Better-xNet</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -58,7 +58,6 @@
     </Compile>
     <Compile Include="xNet\RequestParams.cs" />
     <Compile Include="xNet\~Http\HttpExceptionStatus.cs" />
-    <Compile Include="xNet\~Http\~Helpers\HttpHelper.cs" />
     <Compile Include="xNet\~Http\~Content\BytesContent.cs" />
     <Compile Include="xNet\~Http\~Content\FileContent.cs" />
     <Compile Include="xNet\~Http\~Content\FormUrlEncodedContent.cs" />
@@ -67,9 +66,9 @@
     <Compile Include="xNet\~Http\~Content\MultipartContent.cs" />
     <Compile Include="xNet\~Http\~Content\StreamContent.cs" />
     <Compile Include="xNet\~Http\~Content\StringContent.cs" />
-    <Compile Include="xNet\~Http\~Misc\DownloadProgressChangedEventArgs.cs" />
+    <Compile Include="xNet\~Events\DownloadProgressChangedEventArgs.cs" />
     <Compile Include="xNet\~Http\HttpHeader.cs" />
-    <Compile Include="xNet\~Http\~Misc\UploadProgressChangedEventArgs.cs" />
+    <Compile Include="xNet\~Events\UploadProgressChangedEventArgs.cs" />
     <Compile Include="xNet\~Internal\ExceptionHelper.cs" />
     <Compile Include="xNet\~Text\TextHelper.cs" />
     <Compile Include="xNet\NetException.cs" />
@@ -93,8 +92,8 @@
     <Compile Include="xNet\~Text\~Cryptography\SecureRandoms.cs" />
     <Compile Include="xNet\~Threading\AsyncEvent.cs" />
     <Compile Include="xNet\~Threading\MultiThreading.cs" />
-    <Compile Include="xNet\~Threading\MultiThreadingProgressEventArgs.cs" />
-    <Compile Include="xNet\~Threading\MultiThreadingRepeatEventArgs.cs" />
+    <Compile Include="xNet\~Events\MultiThreadingProgressEventArgs.cs" />
+    <Compile Include="xNet\~Events\MultiThreadingRepeatEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
