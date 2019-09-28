@@ -1,6 +1,6 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.3.7
+Current version : 3.3.7\n
 **IMPORTANT :**
 - Fixed all User-Agents.
 - Switched to .NET Framework 4.5 to fix issue #59.
