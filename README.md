@@ -16,12 +16,13 @@ Current version : 3.3.7
 - Added the "TestWebsite" function in the HttpUtils class, made to test a website's availability with a 10s timeout by default.
 - Getting a webpage's source with the "GetPageSource" function is now faster.
 
+# Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
 PayPal : **erruption.selly@gmail.com** - Bitcoin : **1Q8dZDTDxzJ1YLbm4fYfEK8KvDq86LFucU**
 
 Also check out my [YouTube channel](https://www.youtube.com/c/B3RAPSoftwares)!
 
-Example :
+# Example :
 <pre>
 using (var req = new HttpRequest())
 {
