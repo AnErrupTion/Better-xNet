@@ -7,6 +7,11 @@ Current version : 3.3.6
 - Added back the MD5 functions from the 3.1.4 DLL (thanks to @nguyenvu1981 for giving me the link of the 3.1.4 version of xNet). The class is in "xNet.Text.Cryptography.MD5Hashes".
 - Added back the MultiThreading with his other classes "AsyncEvent" and 2 others from the 3.1.4 DLL. They're in "xNet.Threading.MultiThreading", "xNet.Threading.AsyncEvent", etc..
 
+Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
+PayPal : **erruption.selly@gmail.com** - Bitcoin : **1Q8dZDTDxzJ1YLbm4fYfEK8KvDq86LFucU**
+
+Also check out my [YouTube channel](https://www.youtube.com/c/B3RAPSoftwares)!
+
 Example:
 <pre>
 using (var request = new HttpRequest("https://google.com/"))
