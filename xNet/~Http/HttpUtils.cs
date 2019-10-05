@@ -40,4 +40,4 @@ namespace Better_xNet
             return false;
         }
     }
-}
+};
