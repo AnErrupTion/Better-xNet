@@ -318,6 +318,8 @@ namespace Better_xNet
 
         #region User Agent
 
+        private static string[] UserAgents = { "Mozilla/5.0 ({0}; WOW64; Trident/{1}; rv:{2}) like Gecko", "Mozilla/5.0 ({0}; {1}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{2} Safari/537.36 OPR/{3}", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.34 Safari/537.36 Edg/78.0.276.11", "Mozilla/5.0 (Linux; U; {0}; SM-J710F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.73 Mobile Safari/537.36 OPR/44.1.2254.143214" };
+
         /// <summary>
         /// Генерирует случайный User-Agent от браузера IE.
         /// </summary>
@@ -350,7 +352,7 @@ namespace Better_xNet
             #endregion
 
             return string.Format(
-                "Mozilla/5.0 ({0}; WOW64; Trident/{1}; rv:{2}) like Gecko",
+                UserAgents[0],
                 windowsVersion, trident, version);
         }
 
@@ -394,7 +396,7 @@ namespace Better_xNet
             #endregion
 
             return string.Format(
-                "Mozilla/5.0 ({0}; {1}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{2} Safari/537.36 OPR/{3}",
+                UserAgents[1],
                 windowsVersion, systemType, chromeVersion, operaVersion);
         }
 
@@ -407,7 +409,7 @@ namespace Better_xNet
             string windowsVersion = RandomWindowsVersion();
 
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36",
+                UserAgents[2],
                 windowsVersion);
         }
 
@@ -420,7 +422,7 @@ namespace Better_xNet
             string windowsVersion = RandomWindowsVersion();
 
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0",
+                UserAgents[3],
                 windowsVersion);
         }
 
@@ -429,7 +431,7 @@ namespace Better_xNet
             string windowsVersion = RandomWindowsVersion();
 
             return string.Format(
-                "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362",
+                UserAgents[4],
                 windowsVersion);
         }
 
@@ -437,7 +439,7 @@ namespace Better_xNet
         {
             string windowsVersion = RandomWindowsVersion();
 
-            return string.Format("Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/76.0.3809.132 Safari/537.36",
+            return string.Format(UserAgents[4],
                 windowsVersion);
         }
 
@@ -445,7 +447,7 @@ namespace Better_xNet
         {
             string windowsVersion = RandomWindowsVersion();
 
-            return string.Format("Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.34 Safari/537.36 Edg/78.0.276.11",
+            return string.Format(UserAgents[5],
                 windowsVersion);
         }
 
@@ -453,8 +455,13 @@ namespace Better_xNet
         {
             string androidVersion = RandomAndroidVersion();
 
-            return string.Format("Mozilla/5.0 (Linux; U; {0}; SM-J710F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.73 Mobile Safari/537.36 OPR/44.1.2254.143214",
+            return string.Format(UserAgents[6],
                 androidVersion);
+        }
+
+        public static string RandomUserAgent()
+        {
+            return UserAgents[SecureRandoms.Next(0, UserAgents.Length)];
         }
 
         #endregion
