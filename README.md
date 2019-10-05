@@ -1,18 +1,11 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.3.7
+Current version : 3.3.8
 # Changelog :
-- **Fixed all User-Agents.**
-- **Switched to .NET Framework 4.5 to fix issue #54.**
-- Added all missing HTTP Status Codes (102, 103, 207, 208, 226, 308, 418 -> 429, 431, 451, 506 -> 508, 510, 511) and removed duplicate ones (including some of the Pull Request #58).
-- Moved all events (DownloadProgressChangedEventArgs, MultiThreadingProgressEventArgs, etc..) to "xNet.Events".
-- Removed the HttpHelper class, it was useless.
-- Loading some User-Agents should now be faster due to removing useless parts.
-- Added Brave and Chromium-based Edge User-Agent.
-- Added back the *updated* Opera Mini User-Agent for Android only.
-- Made the HttpUtils class static.
-- Added the "TestWebsite" function in the HttpUtils class, made to test a website's availability with a 10s timeout by default.
-- Getting a webpage's source with the "GetPageSource" function is now faster.
+- Added the RandomUserAgent() function.
+- Dropped support for string address, must use Uri (HttpRequest, HttpUtils).
+- Made the Raw() function private.
+- Dropped support for Socks4A proxies.
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
