@@ -1,4 +1,4 @@
-﻿namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Тип прокси-сервера.
@@ -7,8 +7,6 @@
     {
         Http,
         Socks4,
-        Socks4a,
-        Socks5,
-        Chain
+        Socks5
     }
 }
