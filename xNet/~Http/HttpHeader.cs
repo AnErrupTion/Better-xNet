@@ -1,5 +1,5 @@
-﻿
-namespace xNet
+
+namespace Better_xNet
 {
     /// <summary>
     /// HTTP-заголовки.
@@ -24,7 +24,9 @@ namespace xNet
         Pragma,
         Range,
         Referer,
+        Origin,
         Upgrade,
+        UpgradeInsecureRequests,
         UserAgent,
         Via,
         Warning,
