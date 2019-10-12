@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет класс, предназначеннный для загрузки ответа от HTTP-сервера.
@@ -422,7 +422,7 @@ namespace xNet
         /// <summary>
         /// Возвращает кодировку тела сообщения.
         /// </summary>
-        /// <value>Кодировка тела сообщения, если соответствующий заголок задан, иначе значение заданное в <see cref="xNet.Net.HttpRequest"/>. Если и оно не задано, то значение <see cref="System.Text.Encoding.Default"/>.</value>
+        /// <value>Кодировка тела сообщения, если соответствующий заголок задан, иначе значение заданное в <see cref="Better_xNet.Net.HttpRequest"/>. Если и оно не задано, то значение <see cref="System.Text.Encoding.Default"/>.</value>
         public Encoding CharacterSet { get; private set; }
 
         /// <summary>
@@ -450,9 +450,9 @@ namespace xNet
         }
 
         /// <summary>
-        /// Возвращает куки, образовавшиеся в результате запроса, или установленные в <see cref="xNet.Net.HttpRequest"/>.
+        /// Возвращает куки, образовавшиеся в результате запроса, или установленные в <see cref="Better_xNet.Net.HttpRequest"/>.
         /// </summary>
-        /// <remarks>Если куки были установлены в <see cref="xNet.Net.HttpRequest"/> и значение свойства <see cref="xNet.Net.CookieDictionary.IsLocked"/> равно <see langword="true"/>, то будут созданы новые куки.</remarks>
+        /// <remarks>Если куки были установлены в <see cref="Better_xNet.Net.HttpRequest"/> и значение свойства <see cref="Better_xNet.Net.CookieDictionary.IsLocked"/> равно <see langword="true"/>, то будут созданы новые куки.</remarks>
         public CookieStorage Cookies { get; private set; }
 
         /// <summary>
@@ -542,7 +542,7 @@ namespace xNet
         /// </summary>
         /// <returns>Если тело сообщения отсутствует, или оно уже было загружено, то будет возвращён пустой массив байтов.</returns>
         /// <exception cref="System.InvalidOperationException">Вызов метода из ошибочного ответа.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
+        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public byte[] ToBytes()
         {
             #region Проверка состояния
@@ -599,58 +599,31 @@ namespace xNet
         /// </summary>
         /// <returns>Если тело сообщения отсутствует, или оно уже было загружено, то будет возвращена пустая строка.</returns>
         /// <exception cref="System.InvalidOperationException">Вызов метода из ошибочного ответа.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
+        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         override public string ToString()
         {
             #region Проверка состояния
 
-            if (HasError)
-            {
-                throw new InvalidOperationException(
-                    Resources.InvalidOperationException_HttpResponse_HasError);
-            }
+            if (HasError) throw new InvalidOperationException(Resources.InvalidOperationException_HttpResponse_HasError);
 
             #endregion
 
-            var memoryStream = new MemoryStream(
-                (ContentLength == -1) ? 0 : ContentLength);
-
+            MemoryStream m = new MemoryStream((ContentLength == -1) ? 0 : ContentLength);
             try
             {
                 IEnumerable<BytesWraper> source = GetMessageBodySource();
-
-                foreach (var bytes in source)
-                {
-                    memoryStream.Write(bytes.Value, 0, bytes.Length);
-                }
+                foreach (BytesWraper bytes in source) m.Write(bytes.Value, 0, bytes.Length);
             }
             catch (Exception ex)
             {
                 HasError = true;
-
-                if (ex is IOException || ex is InvalidOperationException)
-                {
-                    throw NewHttpException(Resources.HttpException_FailedReceiveMessageBody, ex);
-                }
-
-                throw;
+                if (ex is IOException || ex is InvalidOperationException) throw NewHttpException(Resources.HttpException_FailedReceiveMessageBody, ex);
             }
 
-            if (ConnectionClosed())
-            {
-                _request.Dispose();
-            }
+            if (ConnectionClosed()) _request.Dispose();
 
             MessageBodyLoaded = true;
-            string text = string.Empty;
-
-            if (MessageBodyLoaded)
-            {
-                text = CharacterSet.GetString(
-                memoryStream.GetBuffer(), 0, (int)memoryStream.Length);
-            }
-
-            return text;
+            return GetCharacterSet().GetString(m.GetBuffer(), 0, Convert.ToInt32(m.Length));
         }
 
         /// <summary>
@@ -672,7 +645,7 @@ namespace xNet
         /// -или-
         /// Вызывающий оператор не имеет необходимого разрешения.
         /// </exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
+        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public void ToFile(string path)
         {
             #region Проверка состояния
@@ -748,7 +721,7 @@ namespace xNet
         /// </summary>
         /// <returns>Если тело сообщения отсутствует, или оно уже было загружено, то будет возвращено значение <see langword="null"/>.</returns>
         /// <exception cref="System.InvalidOperationException">Вызов метода из ошибочного ответа.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
+        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public MemoryStream ToMemoryStream()
         {
             #region Проверка состояния
@@ -804,7 +777,7 @@ namespace xNet
         /// Пропускает тело сообщения. Данный метод следует вызвать, если не требуется тело сообщения.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Вызов метода из ошибочного ответа.</exception>
-        /// <exception cref="xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
+        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
         public void None()
         {
             #region Проверка состояния
