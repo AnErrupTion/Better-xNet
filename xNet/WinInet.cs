@@ -1,13 +1,15 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Security;
 using Microsoft.Win32;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет класс для взаимодействия с настройками сети операционной системы Windows.
     /// </summary>
+
+    [Obsolete("This class is obsolete since the creation of newer browsers, please use the other classes! (HttpRequest, Http, etc...)", true)]
     public static class WinInet
     {
         private const string PathToInternetOptions = @"Software\Microsoft\Windows\CurrentVersion\Internet Settings";
