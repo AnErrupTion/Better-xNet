@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Security;
 
 namespace Better_xNet
 {
     [SuppressUnmanagedCodeSecurityAttribute]
+    [Obsolete("This class is obsolete since the creation of newer browsers, please use the other classes! (HttpRequest, Http, etc...)", true)]
     internal static class SafeNativeMethods
     {
         [Flags]
