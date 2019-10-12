@@ -17,8 +17,7 @@ namespace Better_xNet
                 req.KeepAlive = true;
                 req.Cookies = new CookieStorage();
 
-                string respo = req.Get(address).ToString();
-                return respo;
+                return req.Get(address).ToString();
             }
 
             return null;
@@ -33,8 +32,7 @@ namespace Better_xNet
                 req.Cookies = new CookieStorage();
                 req.ConnectTimeout = timeout;
 
-                bool respo = req.Get(address).IsOK;
-                if (respo) return true;
+                if (req.Get(address).IsOK) return true;
             }
 
             return false;
