@@ -318,7 +318,7 @@ namespace Better_xNet
 
         #region User Agent
 
-        private static string[] UserAgents = { "Mozilla/5.0 ({0}; WOW64; Trident/{1}; rv:{2}) like Gecko", "Mozilla/5.0 ({0}; {1}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{2} Safari/537.36 OPR/{3}", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.34 Safari/537.36 Edg/78.0.276.11", "Mozilla/5.0 (Linux; U; {0}; SM-J710F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.73 Mobile Safari/537.36 OPR/44.1.2254.143214" };
+        private static string[] UserAgents = { "Mozilla/5.0 ({0}; WOW64; Trident/{1}; rv:{2}) like Gecko", "Mozilla/5.0 ({0}; {1}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/{2} Safari/537.36 OPR/{3}", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64; rv:69.0) Gecko/20100101 Firefox/69.0", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.18362", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Brave Chrome/76.0.3809.132 Safari/537.36", "Mozilla/5.0 ({0}; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.34 Safari/537.36 Edg/78.0.276.11", "Mozilla/5.0 (Linux; U; {0}; SM-J710F Build/M1AJQ; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/77.0.3865.73 Mobile Safari/537.36 OPR/44.1.2254.143214", "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)", "Mozilla/5.0 (compatible; Bingbot/2.0; +http://www.bing.com/bingbot.htm)", "Mozilla/5.0 (compatible; Yahoo! Slurp; http://help.yahoo.com/help/us/ysearch/slurp)", "DuckDuckBot/1.0; (+http://duckduckgo.com/duckduckbot.html)", "Mozilla/5.0 (compatible; Baiduspider/2.0; +http://www.baidu.com/search/spider.html)", "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)", "Sogou Pic Spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)", "Sogou head spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)", "Sogou web spider/4.0(+http://www.sogou.com/docs/help/webmasters.htm#07)", "Sogou Orion spider/3.0( http://www.sogou.com/docs/help/webmasters.htm#07)", "Sogou-Test-Spider/4.0 (compatible; MSIE 5.5; Windows 98)", "Mozilla/5.0 (compatible; Konqueror/3.5; Linux) KHTML/3.5.5 (like Gecko) (Exabot-Thumbnails)", "Mozilla/5.0 (compatible; Exabot/3.0; +http://www.exabot.com/go/robot)", "facebookexternalhit/{0} (+http://www.facebook.com/externalhit_uatext.php)", "ia_archiver (+http://www.alexa.com/site/help/webmasters; crawler@alexa.com)" };
 
         /// <summary>
         /// Генерирует случайный User-Agent от браузера IE.
@@ -457,6 +457,93 @@ namespace Better_xNet
 
             return string.Format(UserAgents[6],
                 androidVersion);
+        }
+
+        public static string GooglebotUserAgent()
+        {
+            return string.Format(UserAgents[7]);
+        }
+
+        public static string BingbotUserAgent()
+        {
+            return string.Format(UserAgents[8]);
+        }
+
+        public static string YahoobotUserAgent()
+        {
+            return string.Format(UserAgents[9]);
+        }
+
+        public static string DuckduckbotUserAgent()
+        {
+            return string.Format(UserAgents[10]);
+        }
+
+        public static string BaiduspiderUserAgent()
+        {
+            return string.Format(UserAgents[11]);
+        }
+
+        public static string YandexbotUserAgent()
+        {
+            return string.Format(UserAgents[12]);
+        }
+
+        public static string SogouPicspiderUserAgent()
+        {
+            return string.Format(UserAgents[13]);
+        }
+
+        public static string SogouheadspiderUserAgent()
+        {
+            return string.Format(UserAgents[14]);
+        }
+
+        public static string SogouwebspiderUserAgent()
+        {
+            return string.Format(UserAgents[15]);
+        }
+
+        public static string SogouOrionspiderUserAgent()
+        {
+            return string.Format(UserAgents[16]);
+        }
+
+        public static string SogouTestspiderUserAgent()
+        {
+            return string.Format(UserAgents[17]);
+        }
+
+        public static string KonquerorUserAgent()
+        {
+            return string.Format(UserAgents[18]);
+        }
+
+        public static string ExabotUserAgent()
+        {
+            return string.Format(UserAgents[19]);
+        }
+
+        public static string FacebookExtHitUserAgent()
+        {
+            string version = string.Empty;
+            switch (Rand.Next(2))
+            {
+                case 0:
+                    version = "1.0";
+                    break;
+
+                case 1:
+                    version = "1.1";
+                    break;
+            }
+
+            return string.Format(UserAgents[20], version);
+        }
+
+        public static string AlexabotUserAgent()
+        {
+            return string.Format(UserAgents[21]);
         }
 
         public static string RandomUserAgent()
