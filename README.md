@@ -1,11 +1,12 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.3.8
+Current version : 3.3.9
 # Changelog :
-- Added the RandomUserAgent() function.
-- Dropped support for string address, must use Uri (HttpRequest, HttpUtils).
-- Made the Raw() function private.
-- Dropped support for Socks4A proxies.
+- Fixed the Html (TextHelper) class not properly renamed.
+- Added search engine bots (Googlebot, Bingbot, etc...) in User-Agents.
+- Updated all HTTP Headers (took them from Leaf.xNet)
+- Optimized a bit the HttpResponse.ToString() method.
+- Marked the WinInet and SafeNativeMethods classes deprecated.
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
