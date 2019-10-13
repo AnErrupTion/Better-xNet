@@ -20,7 +20,7 @@ namespace Better_xNet
                 return req.Get(address).ToString();
             }
 
-            return null;
+            return string.Empty;
         }
 
         public static bool TestWebsite(Uri address, string ua, int timeout = 10000)
