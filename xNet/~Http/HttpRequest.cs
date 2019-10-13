@@ -2164,10 +2164,11 @@ namespace Better_xNet
 
             ProxyClient proxy = Proxy ?? GlobalProxy;
 
-            if (proxy == null && UseIeProxy && !WinInet.InternetConnected)
-            {
-                proxy = WinInet.IEProxy;
-            }
+            // WININET IS DEPRECATED
+            //if (proxy == null && UseIeProxy && !WinInet.InternetConnected)
+            //{
+            //    proxy = WinInet.IEProxy;
+            //}
 
             return proxy;
         }
@@ -2284,7 +2285,6 @@ namespace Better_xNet
                         sslStream = new SslStream(_connectionNetworkStream, false, SslCertificateValidatorCallback);
                     }
 
-                    //sslStream.AuthenticateAsClient(address.Host);
                     sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls12, false);
                     _connectionCommonStream = sslStream;
                 }
