@@ -638,61 +638,117 @@ namespace Better_xNet
         {
             string androidVersion = "Android ";
 
-            switch (Rand.Next(14))
+            switch (Rand.Next(28))
             {
                 case 0:
-                    androidVersion += "4.1"; // Jelly Bean
+                    androidVersion += "1.0";
                     break;
 
                 case 1:
-                    androidVersion += "4.3.1"; // Jelly Bean
+                    androidVersion += "1.1"; // Petit Four
                     break;
 
                 case 2:
-                    androidVersion += "4.4"; // KitKat
+                    androidVersion += "1.5"; // Cupcake
                     break;
 
                 case 3:
-                    androidVersion += "4.4.4"; // KitKat
+                    androidVersion += "1.6"; // Donut
                     break;
 
                 case 4:
-                    androidVersion += "5.0"; // Lollipop
+                    androidVersion += "2.0"; // Eclair
                     break;
 
                 case 5:
-                    androidVersion += "5.1.1"; // Lollipop
+                    androidVersion += "2.1"; // Eclair
                     break;
 
                 case 6:
-                    androidVersion += "6.0"; // Marshmallow
+                    androidVersion += "2.2"; // Froyo
                     break;
 
                 case 7:
-                    androidVersion += "6.0.1"; // Marshmallow
+                    androidVersion += "2.2.3"; // Froyo
                     break;
 
                 case 8:
-                    androidVersion += "7.0"; // Nougat
+                    androidVersion += "2.3"; // Gingerbread
                     break;
 
                 case 9:
-                    androidVersion += "7.1.2"; // Nougat
+                    androidVersion += "2.3.7"; // Gingerbread
                     break;
 
                 case 10:
-                    androidVersion += "8.0"; // Oreo
+                    androidVersion += "3.0"; // Honeycomb
                     break;
 
                 case 11:
-                    androidVersion += "8.1"; // Oreo
+                    androidVersion += "3.2.6"; // Honeycomb
                     break;
 
                 case 12:
-                    androidVersion += "9.0"; // Pie
+                    androidVersion += "4.0"; // Ice Cream Sandwich
                     break;
 
                 case 13:
+                    androidVersion += "4.0.4"; // Ice Cream Sandwich
+                    break;
+
+                case 14:
+                    androidVersion += "4.1"; // Jelly Bean
+                    break;
+
+                case 15:
+                    androidVersion += "4.3.1"; // Jelly Bean
+                    break;
+
+                case 16:
+                    androidVersion += "4.4"; // KitKat
+                    break;
+
+                case 17:
+                    androidVersion += "4.4.4"; // KitKat
+                    break;
+
+                case 18:
+                    androidVersion += "5.0"; // Lollipop
+                    break;
+
+                case 19:
+                    androidVersion += "5.1.1"; // Lollipop
+                    break;
+
+                case 20:
+                    androidVersion += "6.0"; // Marshmallow
+                    break;
+
+                case 21:
+                    androidVersion += "6.0.1"; // Marshmallow
+                    break;
+
+                case 22:
+                    androidVersion += "7.0"; // Nougat
+                    break;
+
+                case 23:
+                    androidVersion += "7.1.2"; // Nougat
+                    break;
+
+                case 24:
+                    androidVersion += "8.0"; // Oreo
+                    break;
+
+                case 25:
+                    androidVersion += "8.1"; // Oreo
+                    break;
+
+                case 26:
+                    androidVersion += "9.0"; // Pie
+                    break;
+
+                case 27:
                     androidVersion += "10.0"; // Android 10
                     break;
             }
