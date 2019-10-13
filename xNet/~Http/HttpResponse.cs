@@ -609,11 +609,8 @@ namespace Better_xNet
             #endregion
 
             MemoryStream m = new MemoryStream((ContentLength == -1) ? 0 : ContentLength);
-            try
-            {
-                IEnumerable<BytesWraper> source = GetMessageBodySource();
-                foreach (BytesWraper bytes in source) m.Write(bytes.Value, 0, bytes.Length);
-            }
+
+            try { foreach (BytesWraper b in GetMessageBodySource()) m.Write(b.Value, 0, b.Length); }
             catch (Exception ex)
             {
                 HasError = true;
@@ -1178,47 +1175,24 @@ namespace Better_xNet
 
         private IEnumerable<BytesWraper> GetMessageBodySource()
         {
-            if (_headers.ContainsKey("Content-Encoding"))
-            {
-                return GetMessageBodySourceZip();
-            }
-
+            if (ContainsHeader("Content-Encoding")) return GetMessageBodySourceZip();
             return GetMessageBodySourceStd();
         }
 
         // Загрузка обычных данных.
         private IEnumerable<BytesWraper> GetMessageBodySourceStd()
         {
-            if (_headers.ContainsKey("Transfer-Encoding"))
-            {
-                return ReceiveMessageBodyChunked();
-            }
-
-            if (ContentLength != -1)
-            {
-                return ReceiveMessageBody(ContentLength);
-            }
-
+            if (ContainsHeader("Transfer-Encoding")) return ReceiveMessageBodyChunked();
+            if (GetContentLength() != -1) return ReceiveMessageBody(ContentLength);
             return ReceiveMessageBody(_request.ClientStream);
         }
 
         // Загрузка сжатых данных.
         private IEnumerable<BytesWraper> GetMessageBodySourceZip()
         {
-            if (_headers.ContainsKey("Transfer-Encoding"))
-            {
-                return ReceiveMessageBodyChunkedZip();
-            }
-
-            if (ContentLength != -1)
-            {
-                return ReceiveMessageBodyZip(ContentLength);
-            }
-
-            var streamWrapper = new ZipWraperStream(
-                _request.ClientStream, _receiverHelper);
-
-            return ReceiveMessageBody(GetZipStream(streamWrapper));
+            if (ContainsHeader("Transfer-Encoding")) return ReceiveMessageBodyChunkedZip();
+            if (GetContentLength() != -1) return ReceiveMessageBodyZip(GetContentLength());
+            return ReceiveMessageBody(GetZipStream(new ZipWraperStream(_request.ClientStream, _receiverHelper)));
         }
 
         // Загрузка тела сообщения неизвестной длины.
@@ -1234,21 +1208,11 @@ namespace Better_xNet
             int begBytesRead = 0;
 
             // Считываем начальные данные из тела сообщения.
-            if (stream is GZipStream || stream is DeflateStream)
-            {
-                begBytesRead = stream.Read(buffer, 0, bufferSize);
-            }
+            if (stream is GZipStream || stream is DeflateStream) begBytesRead = stream.Read(buffer, 0, bufferSize);
             else
             {
-                if (_receiverHelper.HasData)
-                {
-                    begBytesRead = _receiverHelper.Read(buffer, 0, bufferSize);
-                }
-
-                if (begBytesRead < bufferSize)
-                {
-                    begBytesRead += stream.Read(buffer, begBytesRead, bufferSize - begBytesRead);
-                }
+                if (_receiverHelper.HasData) begBytesRead = _receiverHelper.Read(buffer, 0, bufferSize);
+                if (begBytesRead < bufferSize) begBytesRead += stream.Read(buffer, begBytesRead, bufferSize - begBytesRead);
             }
 
             // Возвращаем начальные данные.
@@ -1258,17 +1222,7 @@ namespace Better_xNet
             // Проверяем, есть ли открывающий тег '<html'.
             // Если есть, то считываем данные то тех пор, пока не встретим закрывающий тек '</html>'.
             bool isHtml = FindSignature(buffer, begBytesRead, _openHtmlSignature);
-
-            if (isHtml)
-            {
-                bool found = FindSignature(buffer, begBytesRead, _closeHtmlSignature);
-
-                // Проверяем, есть ли в начальных данных закрывающий тег.
-                if (found)
-                {
-                    yield break;
-                }
-            }
+            if (isHtml && FindSignature(buffer, begBytesRead, _closeHtmlSignature)) yield break;
 
             while (true)
             {
@@ -1280,24 +1234,16 @@ namespace Better_xNet
                     if (bytesRead == 0)
                     {
                         WaitData();
-
                         continue;
                     }
 
-                    bool found = FindSignature(buffer, bytesRead, _closeHtmlSignature);
-
-                    if (found)
+                    if (FindSignature(buffer, bytesRead, _closeHtmlSignature))
                     {
                         bytesWraper.Length = bytesRead;
                         yield return bytesWraper;
-
                         yield break;
                     }
-                }
-                else if (bytesRead == 0)
-                {
-                    yield break;
-                }
+                } else if (bytesRead == 0) yield break;
 
                 bytesWraper.Length = bytesRead;
                 yield return bytesWraper;
@@ -1312,32 +1258,18 @@ namespace Better_xNet
 
             int bufferSize = _request.TcpClient.ReceiveBufferSize;
             byte[] buffer = new byte[bufferSize];
-
             bytesWraper.Value = buffer;
 
             int totalBytesRead = 0;
-
             while (totalBytesRead != contentLength)
             {
                 int bytesRead;
+                if (_receiverHelper.HasData) bytesRead = _receiverHelper.Read(buffer, 0, bufferSize); else bytesRead = stream.Read(buffer, 0, bufferSize);
 
-                if (_receiverHelper.HasData)
-                {
-                    bytesRead = _receiverHelper.Read(buffer, 0, bufferSize);
-                }
-                else
-                {
-                    bytesRead = stream.Read(buffer, 0, bufferSize);
-                }
-
-                if (bytesRead == 0)
-                {
-                    WaitData();
-                }
+                if (bytesRead == 0) WaitData();
                 else
                 {
                     totalBytesRead += bytesRead;
-
                     bytesWraper.Length = bytesRead;
                     yield return bytesWraper;
                 }
@@ -1352,7 +1284,6 @@ namespace Better_xNet
 
             int bufferSize = _request.TcpClient.ReceiveBufferSize;
             byte[] buffer = new byte[bufferSize];
-
             bytesWraper.Value = buffer;
 
             while (true)
@@ -1360,69 +1291,36 @@ namespace Better_xNet
                 string line = _receiverHelper.ReadLine();
 
                 // Если достигнут конец блока.
-                if (line == Http.NewLine)
-                    continue;
-
+                if (line == Http.NewLine) continue;
                 line = line.Trim(' ', '\r', '\n');
 
                 // Если достигнут конец тела сообщения.
-                if (line == string.Empty)
-                    yield break;
+                if (line == string.Empty) yield break;
 
-                int blockLength;
+                int blockLength = 0;
                 int totalBytesRead = 0;
 
                 #region Задаём длину блока
 
-                try
-                {
-                    blockLength = Convert.ToInt32(line, 16);
-                }
-                catch (Exception ex)
-                {
-                    if (ex is FormatException || ex is OverflowException)
-                    {
-                        throw NewHttpException(string.Format(
-                            Resources.HttpException_WrongChunkedBlockLength, line), ex);
-                    }
-
-                    throw;
-                }
+                try { blockLength = Convert.ToInt32(line, 16); } catch (Exception ex) { if (ex is FormatException || ex is OverflowException) throw NewHttpException(string.Format(Resources.HttpException_WrongChunkedBlockLength, line), ex); }
 
                 #endregion
 
                 // Если достигнут конец тела сообщения.
-                if (blockLength == 0)
-                    yield break;
+                if (blockLength == 0) yield break;
 
                 while (totalBytesRead != blockLength)
                 {
                     int length = blockLength - totalBytesRead;
-
-                    if (length > bufferSize)
-                    {
-                        length = bufferSize;
-                    }
+                    if (length > bufferSize) length = bufferSize;
 
                     int bytesRead;
+                    if (_receiverHelper.HasData) bytesRead = _receiverHelper.Read(buffer, 0, length); else bytesRead = stream.Read(buffer, 0, length);
 
-                    if (_receiverHelper.HasData)
-                    {
-                        bytesRead = _receiverHelper.Read(buffer, 0, length);
-                    }
-                    else
-                    {
-                        bytesRead = stream.Read(buffer, 0, length);
-                    }
-
-                    if (bytesRead == 0)
-                    {
-                        WaitData();
-                    }
+                    if (bytesRead == 0) WaitData();
                     else
                     {
                         totalBytesRead += bytesRead;
-
                         bytesWraper.Length = bytesRead;
                         yield return bytesWraper;
                     }
@@ -1433,30 +1331,23 @@ namespace Better_xNet
         private IEnumerable<BytesWraper> ReceiveMessageBodyZip(int contentLength)
         {
             var bytesWraper = new BytesWraper();
-            var streamWrapper = new ZipWraperStream(
-                _request.ClientStream, _receiverHelper);
+            var streamWrapper = new ZipWraperStream(_request.ClientStream, _receiverHelper);
 
             using (Stream stream = GetZipStream(streamWrapper))
             {
                 int bufferSize = _request.TcpClient.ReceiveBufferSize;
                 byte[] buffer = new byte[bufferSize];
-
                 bytesWraper.Value = buffer;
 
                 while (true)
                 {
                     int bytesRead = stream.Read(buffer, 0, bufferSize);
-
                     if (bytesRead == 0)
                     {
-                        if (streamWrapper.TotalBytesRead == contentLength)
-                        {
-                            yield break;
-                        }
+                        if (streamWrapper.TotalBytesRead == contentLength) yield break;
                         else
                         {
                             WaitData();
-
                             continue;
                         }
                     }
@@ -1470,14 +1361,12 @@ namespace Better_xNet
         private IEnumerable<BytesWraper> ReceiveMessageBodyChunkedZip()
         {
             var bytesWraper = new BytesWraper();
-            var streamWrapper = new ZipWraperStream
-                (_request.ClientStream, _receiverHelper);
+            var streamWrapper = new ZipWraperStream(_request.ClientStream, _receiverHelper);
 
             using (Stream stream = GetZipStream(streamWrapper))
             {
                 int bufferSize = _request.TcpClient.ReceiveBufferSize;
                 byte[] buffer = new byte[bufferSize];
-
                 bytesWraper.Value = buffer;
 
                 while (true)
@@ -1485,57 +1374,34 @@ namespace Better_xNet
                     string line = _receiverHelper.ReadLine();
 
                     // Если достигнут конец блока.
-                    if (line == Http.NewLine)
-                        continue;
-
+                    if (line == Http.NewLine) continue;
                     line = line.Trim(' ', '\r', '\n');
 
                     // Если достигнут конец тела сообщения.
-                    if (line == string.Empty)
-                        yield break;
+                    if (line == string.Empty) yield break;
 
-                    int blockLength;
+                    int blockLength = 0;
 
                     #region Задаём длину блока
 
-                    try
-                    {
-                        blockLength = Convert.ToInt32(line, 16);
-                    }
-                    catch (Exception ex)
-                    {
-                        if (ex is FormatException || ex is OverflowException)
-                        {
-                            throw NewHttpException(string.Format(
-                                Resources.HttpException_WrongChunkedBlockLength, line), ex);
-                        }
-
-                        throw;
-                    }
+                    try { blockLength = Convert.ToInt32(line, 16); } catch (Exception ex) { if (ex is FormatException || ex is OverflowException) throw NewHttpException(string.Format(Resources.HttpException_WrongChunkedBlockLength, line), ex); }
 
                     #endregion
 
                     // Если достигнут конец тела сообщения.
-                    if (blockLength == 0)
-                        yield break;
-
+                    if (blockLength == 0) yield break;
                     streamWrapper.TotalBytesRead = 0;
                     streamWrapper.LimitBytesRead = blockLength;
 
                     while (true)
                     {
                         int bytesRead = stream.Read(buffer, 0, bufferSize);
-
                         if (bytesRead == 0)
                         {
-                            if (streamWrapper.TotalBytesRead == blockLength)
-                            {
-                                break;
-                            }
+                            if (streamWrapper.TotalBytesRead == blockLength) break;
                             else
                             {
                                 WaitData();
-
                                 continue;
                             }
                         }
@@ -1670,25 +1536,19 @@ namespace Better_xNet
         private void WaitData()
         {
             int sleepTime = 0;
-            int delay = (_request.TcpClient.ReceiveTimeout < 10) ?
-                10 : _request.TcpClient.ReceiveTimeout;
+            int delay = (_request.TcpClient.ReceiveTimeout < 10) ? 10 : _request.TcpClient.ReceiveTimeout;
 
             while (!_request.ClientNetworkStream.DataAvailable)
             {
-                if (sleepTime >= delay)
-                {
-                    throw NewHttpException(Resources.HttpException_WaitDataTimeout);
-                }
-
+                if (sleepTime >= delay) throw NewHttpException(Resources.HttpException_WaitDataTimeout);
                 sleepTime += 10;
-                Thread.Sleep(10);
+                Thread.Sleep(sleepTime);
             }
         }
 
         private Stream GetZipStream(Stream stream)
         {
             string contentEncoding = _headers["Content-Encoding"].ToLower();
-
             switch (contentEncoding)
             {
                 case "gzip":
@@ -1698,48 +1558,29 @@ namespace Better_xNet
                     return new DeflateStream(stream, CompressionMode.Decompress, true);
 
                 default:
-                    throw new InvalidOperationException(string.Format(
-                        Resources.InvalidOperationException_NotSupportedEncodingFormat, contentEncoding));
+                    throw new InvalidOperationException(string.Format(Resources.InvalidOperationException_NotSupportedEncodingFormat, contentEncoding));
             }
         }
 
         private bool FindSignature(byte[] source, int sourceLength, byte[] signature)
         {
             int length = (sourceLength - signature.Length) + 1;
-
             for (int sourceIndex = 0; sourceIndex < length; ++sourceIndex)
             {
                 for (int signatureIndex = 0; signatureIndex < signature.Length; ++signatureIndex)
                 {
                     byte sourceByte = source[signatureIndex + sourceIndex];
                     char sourceChar = (char)sourceByte;
-
-                    if (char.IsLetter(sourceChar))
-                    {
-                        sourceChar = char.ToLower(sourceChar);
-                    }
+                    if (char.IsLetter(sourceChar)) sourceChar = char.ToLower(sourceChar);
 
                     sourceByte = (byte)sourceChar;
-
-                    if (sourceByte != signature[signatureIndex])
-                    {
-                        break;
-                    }
-                    else if (signatureIndex == (signature.Length - 1))
-                    {
-                        return true;
-                    }
+                    if (sourceByte != signature[signatureIndex]) break; else if (signatureIndex == (signature.Length - 1)) return true;
                 }
             }
-
             return false;
         }
 
-        private HttpException NewHttpException(string message, Exception innerException = null)
-        {
-            return new HttpException(string.Format(message, Address.Host),
-                HttpExceptionStatus.ReceiveFailure, HttpStatusCode.None, innerException);
-        }
+        private HttpException NewHttpException(string message, Exception innerException = null) { return new HttpException(string.Format(message, Address.Host), HttpExceptionStatus.ReceiveFailure, HttpStatusCode.None, innerException); }
 
         #endregion
     }
