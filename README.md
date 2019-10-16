@@ -4,6 +4,7 @@ Current version : 3.4.1
 # Changelog :
 - Fixed a problem with the User-Agents.
 - Removed the Http.RandomUserAgent() function, it was glitched.
+- Removed all non-working Bots User-Agents (Duckduckbot, SogouPicspider, Sogouheadspider, Sogouwebspider and SogouOrionspider).
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
