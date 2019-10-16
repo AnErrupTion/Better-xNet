@@ -1,12 +1,9 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.3.9
+Current version : 3.4.1
 # Changelog :
-- Fixed the Html (TextHelper) class not properly renamed.
-- Added search engine bots (Googlebot, Bingbot, etc...) in User-Agents.
-- Updated all HTTP Headers (took them from Leaf.xNet)
-- Optimized a bit the HttpResponse.ToString() method.
-- Marked the WinInet and SafeNativeMethods classes deprecated.
+- Fixed a problem with the User-Agents.
+- Removed the Http.RandomUserAgent() function, it was glitched.
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
