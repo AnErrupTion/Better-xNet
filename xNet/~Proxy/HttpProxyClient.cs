@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет клиент для HTTP прокси-сервера.
@@ -56,46 +56,6 @@ namespace xNet
         #endregion
 
 
-        #region Статические методы (открытые)
-
-        /// <summary>
-        /// Преобразует строку в экземпляр класса <see cref="HttpProxyClient"/>.
-        /// </summary>
-        /// <param name="proxyAddress">Строка вида - хост:порт:имя_пользователя:пароль. Три последних параметра являются необязательными.</param>
-        /// <returns>Экземпляр класса <see cref="HttpProxyClient"/>.</returns>
-        /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="proxyAddress"/> равно <see langword="null"/>.</exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="proxyAddress"/> является пустой строкой.</exception>
-        /// <exception cref="System.FormatException">Формат порта является неправильным.</exception>
-        public static HttpProxyClient Parse(string proxyAddress)
-        {
-            return ProxyClient.Parse(ProxyType.Http, proxyAddress) as HttpProxyClient;
-        }
-
-        /// <summary>
-        /// Преобразует строку в экземпляр класса <see cref="HttpProxyClient"/>. Возвращает значение, указывающее, успешно ли выполнено преобразование.
-        /// </summary>
-        /// <param name="proxyAddress">Строка вида - хост:порт:имя_пользователя:пароль. Три последних параметра являются необязательными.</param>
-        /// <param name="result">Если преобразование выполнено успешно, то содержит экземпляр класса <see cref="HttpProxyClient"/>, иначе <see langword="null"/>.</param>
-        /// <returns>Значение <see langword="true"/>, если параметр <paramref name="proxyAddress"/> преобразован успешно, иначе <see langword="false"/>.</returns>
-        public static bool TryParse(string proxyAddress, out HttpProxyClient result)
-        {
-            ProxyClient proxy;
-
-            if (ProxyClient.TryParse(ProxyType.Http, proxyAddress, out proxy))
-            {
-                result = proxy as HttpProxyClient;
-                return true;
-            }
-            else
-            {
-                result = null;
-                return false;
-            }
-        }
-
-        #endregion
-
-
         #region Методы (открытые)
 
         /// <summary>
@@ -117,7 +77,7 @@ namespace xNet
         /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="destinationHost"/> равно <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">Значение параметра <paramref name="destinationHost"/> является пустой строкой.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра <paramref name="destinationPort"/> меньше 1 или больше 65535.</exception>
-        /// <exception cref="xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
+        /// <exception cref="Better_xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
         /// <remarks>Если порт сервера неравен 80, то для подключения используется метод 'CONNECT'.</remarks>
         public override TcpClient CreateConnection(string destinationHost, int destinationPort, TcpClient tcpClient = null)
         {

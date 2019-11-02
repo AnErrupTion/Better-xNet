@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет тело запроса в виде потока данных из определённого файла.

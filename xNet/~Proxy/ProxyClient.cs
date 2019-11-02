@@ -4,7 +4,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет базовую реализацию класса для работы с прокси-сервером.
@@ -269,7 +269,7 @@ namespace xNet
         /// <exception cref="System.ArgumentException">Значение параметра <paramref name="proxyAddress"/> является пустой строкой.</exception>
         /// <exception cref="System.FormatException">Формат порта является неправильным.</exception>
         /// <exception cref="System.InvalidOperationException">Получен неподдерживаемый тип прокси-сервера.</exception>
-        public static ProxyClient Parse(ProxyType proxyType, string proxyAddress)
+        public static ProxyClient Parse(string proxyType, string proxyAddress)
         {
             #region Проверка параметров
 
@@ -284,6 +284,9 @@ namespace xNet
             }
 
             #endregion
+
+            ProxyType pt = ProxyType.Http; // Default value
+            if (proxyType.Equals("HTTP")) pt = ProxyType.Http; else if (proxyType.Equals("SOCKS4")) pt = ProxyType.Socks4; else if (proxyType.Equals("SOCKS5")) pt = ProxyType.Socks5;
 
             string[] values = proxyAddress.Split(':');
 
@@ -331,7 +334,7 @@ namespace xNet
                 password = values[3];
             }
 
-            return ProxyHelper.CreateProxyClient(proxyType, host, port, username, password);
+            return ProxyHelper.CreateProxyClient(pt, host, port, username, password);
         }
 
         /// <summary>
@@ -341,7 +344,7 @@ namespace xNet
         /// <param name="proxyAddress">Строка вида - хост:порт:имя_пользователя:пароль. Три последних параметра являются необязательными.</param>
         /// <param name="result">Если преобразование выполнено успешно, то содержит экземпляр класса прокси-клиента, унаследованный от <see cref="ProxyClient"/>, иначе <see langword="null"/>.</param>
         /// <returns>Значение <see langword="true"/>, если параметр <paramref name="proxyAddress"/> преобразован успешно, иначе <see langword="false"/>.</returns>
-        public static bool TryParse(ProxyType proxyType, string proxyAddress, out ProxyClient result)
+        public static bool TryParse(string proxyType, string proxyAddress, out ProxyClient result)
         {
             result = null;
 
@@ -353,6 +356,9 @@ namespace xNet
             }
 
             #endregion
+
+            ProxyType pt = ProxyType.Http; // Default value
+            if (proxyType.Equals("HTTP")) pt = ProxyType.Http; else if (proxyType.Equals("SOCKS4")) pt = ProxyType.Socks4; else if (proxyType.Equals("SOCKS5")) pt = ProxyType.Socks5;
 
             string[] values = proxyAddress.Split(':');
 
@@ -382,7 +388,7 @@ namespace xNet
 
             try
             {
-                result = ProxyHelper.CreateProxyClient(proxyType, host, port, username, password);
+                result = ProxyHelper.CreateProxyClient(pt, host, port, username, password);
             }
             catch (InvalidOperationException)
             {
@@ -414,7 +420,7 @@ namespace xNet
         /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="destinationHost"/> равно <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">Значение параметра <paramref name="destinationHost"/> является пустой строкой.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра <paramref name="destinationPort"/> меньше 1 или больше 65535.</exception>
-        /// <exception cref="xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
+        /// <exception cref="Better_xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
         public abstract TcpClient CreateConnection(string destinationHost, int destinationPort, TcpClient tcpClient = null);
 
 
@@ -513,7 +519,7 @@ namespace xNet
         /// Создаёт соединение с прокси-сервером.
         /// </summary>
         /// <returns>Соединение с прокси-сервером.</returns>
-        /// <exception cref="xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
+        /// <exception cref="Better_xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
         protected TcpClient CreateConnectionToProxy()
         {
             TcpClient tcpClient = null;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет коллекцию строк, представляющих параметры запроса.

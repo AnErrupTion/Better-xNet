@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет тело запроса в виде состовного содержимого.

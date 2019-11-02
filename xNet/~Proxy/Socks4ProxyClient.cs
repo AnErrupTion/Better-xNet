@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет клиент для Socks4 прокси-сервера.
@@ -61,46 +61,6 @@ namespace xNet
         #endregion
 
 
-        #region Статические методы (закрытые)
-
-        /// <summary>
-        /// Преобразует строку в экземпляр класса <see cref="Socks4ProxyClient"/>.
-        /// </summary>
-        /// <param name="proxyAddress">Строка вида - хост:порт:имя_пользователя:пароль. Три последних параметра являются необязательными.</param>
-        /// <returns>Экземпляр класса <see cref="Socks4ProxyClient"/>.</returns>
-        /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="proxyAddress"/> равно <see langword="null"/>.</exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="proxyAddress"/> является пустой строкой.</exception>
-        /// <exception cref="System.FormatException">Формат порта является неправильным.</exception>
-        public static Socks4ProxyClient Parse(string proxyAddress)
-        {
-            return ProxyClient.Parse(ProxyType.Socks4, proxyAddress) as Socks4ProxyClient;
-        }
-
-        /// <summary>
-        /// Преобразует строку в экземпляр класса <see cref="Socks4ProxyClient"/>. Возвращает значение, указывающее, успешно ли выполнено преобразование.
-        /// </summary>
-        /// <param name="proxyAddress">Строка вида - хост:порт:имя_пользователя:пароль. Три последних параметра являются необязательными.</param>
-        /// <param name="result">Если преобразование выполнено успешно, то содержит экземпляр класса <see cref="Socks4ProxyClient"/>, иначе <see langword="null"/>.</param>
-        /// <returns>Значение <see langword="true"/>, если параметр <paramref name="proxyAddress"/> преобразован успешно, иначе <see langword="false"/>.</returns>
-        public static bool TryParse(string proxyAddress, out Socks4ProxyClient result)
-        {
-            ProxyClient proxy;
-
-            if (ProxyClient.TryParse(ProxyType.Socks4, proxyAddress, out proxy))
-            {
-                result = proxy as Socks4ProxyClient;
-                return true;
-            }
-            else
-            {
-                result = null;
-                return false;
-            }
-        }
-
-        #endregion
-
-
         /// <summary>
         /// Создаёт соединение с сервером через прокси-сервер.
         /// </summary>
@@ -120,7 +80,7 @@ namespace xNet
         /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="destinationHost"/> равно <see langword="null"/>.</exception>
         /// <exception cref="System.ArgumentException">Значение параметра <paramref name="destinationHost"/> является пустой строкой.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Значение параметра <paramref name="destinationPort"/> меньше 1 или больше 65535.</exception>
-        /// <exception cref="xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
+        /// <exception cref="Better_xNet.Net.ProxyException">Ошибка при работе с прокси-сервером.</exception>
         public override TcpClient CreateConnection(string destinationHost, int destinationPort, TcpClient tcpClient = null)
         {
             CheckState();

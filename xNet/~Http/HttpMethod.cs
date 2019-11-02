@@ -1,5 +1,5 @@
 ﻿
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// HTTP-метод запроса.
@@ -10,6 +10,10 @@ namespace xNet
         HEAD,
         DELETE,
         POST,
-        PUT
+        PUT,
+        CONNECT,
+        OPTIONS,
+        TRACE,
+        PATCH
     }
 }

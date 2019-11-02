@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -31,19 +31,10 @@ namespace Better_xNet
         /// <returns>Строка, состоящая из имён и значений куки.</returns>
         override public string ToString()
         {
-            var strBuilder = new StringBuilder();        
-
-            foreach (var cookie in this)
-            {
-                strBuilder.AppendFormat("{0}={1}; ", cookie.Key, cookie.Value);
-            }
-
-            if (strBuilder.Length > 0)
-            {
-                strBuilder.Remove(strBuilder.Length - 2, 2);
-            }
-
-            return strBuilder.ToString();
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<string, string> cookie in this) sb.AppendFormat("{0}={1}; ", cookie.Key, cookie.Value);
+            if (sb.Length > 0) sb.Remove(sb.Length - 2, 2);
+            return sb.ToString();
         }
     }
 }

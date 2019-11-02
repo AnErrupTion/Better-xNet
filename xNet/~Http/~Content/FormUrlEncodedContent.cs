@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет тело запроса в виде параметров запроса.

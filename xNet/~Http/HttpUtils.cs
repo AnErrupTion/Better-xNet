@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,11 +15,8 @@ namespace Better_xNet
             {
                 req.UserAgent = ua;
                 req.KeepAlive = true;
-                req.Cookies = new CookieStorage();
-
-                return req.Get(address).ToString();
+                return req.Send(HttpMethod.GET, address).ToString();
             }
-
             return string.Empty;
         }
 
@@ -29,12 +26,9 @@ namespace Better_xNet
             {
                 req.UserAgent = ua;
                 req.KeepAlive = true;
-                req.Cookies = new CookieStorage();
                 req.ConnectTimeout = timeout;
-
-                if (req.Get(address).IsOK) return true;
+                if (req.Send(HttpMethod.GET, address).IsOK) return true;
             }
-
             return false;
         }
     }

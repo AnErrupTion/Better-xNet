@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -427,7 +427,7 @@ namespace Better_xNet
         /// </summary>
         /// <value>Значение по умолчанию — <see langword="false"/>.</value>
         /// <remarks>Если установить значение <see langword="true"/>, то в случае получения ошибочного ответа с кодом состояния 4xx или 5xx, не будет сгенерировано исключение. Вы можете узнать код состояния ответа с помощью свойства <see cref="HttpResponse.StatusCode"/>.</remarks>
-        public bool IgnoreProtocolErrors = true;
+        public bool CheckBadStatusCode = false;
 
         /// <summary>
         /// Возвращает или задает значение, указывающее, необходимо ли устанавливать постоянное подключение к интернет-ресурсу.
@@ -914,262 +914,7 @@ namespace Better_xNet
 
         #region Методы (открытые)
 
-        #region Get
-
-        /// <summary>
-        /// Отправляет GET-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="urlParams">Параметры URL-адреса, или значение <see langword="null"/>.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="address"/> равно <see langword="null"/>.</exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Get(Uri address, RequestParams urlParams = null)
-        {
-            if (urlParams != null)
-            {
-                _temporaryUrlParams = urlParams;
-            }
-
-            return Raw(HttpMethod.GET, address);
-        }
-
-        #endregion
-
-        #region Post
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="address"/> равно <see langword="null"/>.</exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address)
-        {
-            return Raw(HttpMethod.POST, address);
-        }
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="reqParams">Параметры запроса, отправляемые HTTP-серверу.</param>
-        /// <param name="dontEscape">Указывает, нужно ли кодировать параметры запроса.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="reqParams"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address, RequestParams reqParams, bool dontEscape = false)
-        {
-            #region Проверка параметров
-
-            if (reqParams == null)
-            {
-                throw new ArgumentNullException("reqParams");
-            }
-
-            #endregion
-
-            return Raw(HttpMethod.POST, address, new FormUrlEncodedContent(reqParams, dontEscape, CharacterSet));
-        }
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="str">Строка, отправляемая HTTP-серверу.</param>
-        /// <param name="contentType">Тип отправляемых данных.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="str"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="contentType"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="System.ArgumentException">
-        /// Значение параметра <paramref name="str"/> является пустой строкой.
-        /// -или-
-        /// Значение параметра <paramref name="contentType"/> является пустой строкой.
-        /// </exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address, string str, string contentType)
-        {
-            #region Проверка параметров
-
-            if (str == null)
-            {
-                throw new ArgumentNullException("str");
-            }
-
-            if (str.Length == 0)
-            {
-                throw new ArgumentNullException("str");
-            }
-
-            if (contentType == null)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            if (contentType.Length == 0)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            #endregion
-
-            var content = new StringContent(str)
-            {
-                ContentType = contentType
-            };
-
-            return Raw(HttpMethod.POST, address, content);
-        }
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="bytes">Массив байтов, отправляемый HTTP-серверу.</param>
-        /// <param name="contentType">Тип отправляемых данных.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="bytes"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="contentType"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="contentType"/> является пустой строкой.</exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address, byte[] bytes, string contentType = "application/octet-stream")
-        {
-            #region Проверка параметров
-
-            if (bytes == null)
-            {
-                throw new ArgumentNullException("bytes");
-            }
-
-            if (contentType == null)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            if (contentType.Length == 0)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            #endregion
-
-            var content = new BytesContent(bytes)
-            {
-                ContentType = contentType
-            };
-
-            return Raw(HttpMethod.POST, address, content);
-        }
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="stream">Поток данных, отправляемый HTTP-серверу.</param>
-        /// <param name="contentType">Тип отправляемых данных.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="stream"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="contentType"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="contentType"/> является пустой строкой.</exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address, Stream stream, string contentType = "application/octet-stream")
-        {
-            #region Проверка параметров
-
-            if (stream == null)
-            {
-                throw new ArgumentNullException("stream");
-            }
-
-            if (contentType == null)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            if (contentType.Length == 0)
-            {
-                throw new ArgumentNullException("contentType");
-            }
-
-            #endregion
-
-            var content = new StreamContent(stream)
-            {
-                ContentType = contentType
-            };
-
-            return Raw(HttpMethod.POST, address, content);
-        }
-
-        /// <summary>
-        /// Отправляет POST-запрос HTTP-серверу.
-        /// </summary>
-        /// <param name="address">Адрес интернет-ресурса.</param>
-        /// <param name="path">Путь к файлу, данные которого будут отправлены HTTP-серверу.</param>
-        /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
-        /// <exception cref="System.ArgumentNullException">
-        /// Значение параметра <paramref name="address"/> равно <see langword="null"/>.
-        /// -или-
-        /// Значение параметра <paramref name="path"/> равно <see langword="null"/>.
-        /// </exception>
-        /// <exception cref="System.ArgumentException">Значение параметра <paramref name="path"/> является пустой строкой.</exception>
-        /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        public HttpResponse Post(Uri address, string path)
-        {
-            #region Проверка параметров
-
-            if (path == null)
-            {
-                throw new ArgumentNullException("path");
-            }
-
-            if (path.Length == 0)
-            {
-                throw new ArgumentNullException("path");
-            }
-
-            #endregion
-
-            return Raw(HttpMethod.POST, address, new FileContent(path));
-        }
-
-        public HttpResponse Post(Uri address, HttpContent content)
-        {
-            #region Проверка параметров
-
-            if (content == null)
-            {
-                throw new ArgumentNullException("content");
-            }
-
-            #endregion
-
-            return Raw(HttpMethod.POST, address, content);
-        }
-
-        #endregion
-
-        #region Raw
+        #region Requests
 
         /// <summary>
         /// Отправляет запрос HTTP-серверу.
@@ -1180,49 +925,29 @@ namespace Better_xNet
         /// <returns>Объект, предназначенный для загрузки ответа от HTTP-сервера.</returns>
         /// <exception cref="System.ArgumentNullException">Значение параметра <paramref name="address"/> равно <see langword="null"/>.</exception>
         /// <exception cref="Better_xNet.Net.HttpException">Ошибка при работе с HTTP-протоколом.</exception>
-        private HttpResponse Raw(HttpMethod method, Uri address, HttpContent content = null)
+        public HttpResponse Send(HttpMethod method, Uri address, HttpContent content = null)
         {
             #region Проверка параметров
 
-            if (address == null)
-            {
-                throw new ArgumentNullException("address");
-            }
+            if (address == null) throw new ArgumentNullException("address");
 
             #endregion
 
-            if (!address.IsAbsoluteUri)
-                address = GetRequestAddress(BaseAddress, address);
+            if (!address.IsAbsoluteUri) address = GetRequestAddress(BaseAddress, address);
 
             if (_temporaryUrlParams != null)
             {
                 var uriBuilder = new UriBuilder(address);
                 uriBuilder.Query = Http.ToQueryString(_temporaryUrlParams, true);
-
                 address = uriBuilder.Uri;
             }
 
-            if (content == null)
-            {
-                if (_temporaryParams != null)
-                {
-                    content = new FormUrlEncodedContent(_temporaryParams, false, CharacterSet);
-                }
-                else if (_temporaryMultipartContent != null)
-                {
-                    content = _temporaryMultipartContent;
-                }
-            }
+            if (content == null) if (_temporaryParams != null) content = new FormUrlEncodedContent(_temporaryParams, false, CharacterSet); else if (_temporaryMultipartContent != null) content = _temporaryMultipartContent;
 
-            try
-            {
-                return Request(method, address, content);
-            }
+            try { return Request(method, address, content); }
             finally
             {
-                if (content != null)
-                    content.Dispose();
-
+                if (content != null) content.Dispose();
                 ClearRequestData();
             }
         }
@@ -1953,8 +1678,7 @@ namespace Better_xNet
             _keepAliveReconnected = false;
             _whenConnectionIdle = DateTime.Now;
 
-            if (!IgnoreProtocolErrors)
-                CheckStatusCode(_response.StatusCode);
+            if (CheckBadStatusCode) CheckStatusCode(_response.StatusCode);
 
             #region Переадресация
 
@@ -2285,7 +2009,7 @@ namespace Better_xNet
                         sslStream = new SslStream(_connectionNetworkStream, false, SslCertificateValidatorCallback);
                     }
 
-                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls12, false);
+                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls13, false);
                     _connectionCommonStream = sslStream;
                 }
                 catch (Exception ex)

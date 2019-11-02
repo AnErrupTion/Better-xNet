@@ -1,4 +1,4 @@
-namespace Better_xNet
+﻿namespace Better_xNet
 {
     /// <summary>
     /// Тип прокси-сервера.

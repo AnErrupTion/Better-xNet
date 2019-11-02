@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет тело запроса в виде строки.

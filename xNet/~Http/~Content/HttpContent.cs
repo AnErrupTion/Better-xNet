@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace xNet
+namespace Better_xNet
 {
     /// <summary>
     /// Представляет тело запроса. Освбождается сразу после отправки.
