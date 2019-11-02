@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -2009,7 +2009,7 @@ namespace Better_xNet
                         sslStream = new SslStream(_connectionNetworkStream, false, SslCertificateValidatorCallback);
                     }
 
-                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls13, false);
+                    sslStream.AuthenticateAsClient(address.Host, null, SslProtocols.Tls12, false);
                     _connectionCommonStream = sslStream;
                 }
                 catch (Exception ex)
