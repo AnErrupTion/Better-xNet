@@ -1,10 +1,8 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.4.1
+Current version : 3.4.2
 # Changelog :
-- Fixed a problem with the User-Agents.
-- Removed the Http.RandomUserAgent() function, it was glitched.
-- Removed all non-working Bots User-Agents (Duckduckbot, SogouPicspider, Sogouheadspider, Sogouwebspider and SogouOrionspider).
+Too long, view the release info for more details.
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
@@ -12,21 +10,23 @@ PayPal : **erruption.selly@gmail.com** - Bitcoin : **1Q8dZDTDxzJ1YLbm4fYfEK8KvDq
 
 Also check out my [YouTube channel](https://www.youtube.com/c/B3RAPSoftwares)!
 
-# Example :
+# Example (updated for the version 3.4.2) :
 <pre>
-using (var req = new HttpRequest())
+using (HttpRequest req = new HttpRequest())
 {
-   req.UserAgent = Http.EdgeUserAgent();
-   req.Proxy = Socks4ProxyClient.Parse("191.7.50.119:4145");
-   req.KeepAlive = true;
-   req.Cookies = new CookieStorage();
-   // Note that req.IgnoreProtocolErrors is already true by default.
+   req.UserAgent = Http.PaleMoonUserAgent(); // Basically this is what browser you will choose to make your request
+   req.Proxy = Socks4ProxyClient.Parse("177.10.144.22:1080"); // Not needed here but it's an example
+   req.KeepAlive = true; // Sometimes useful
+   req.Cookies = new CookieStorage(); // Same as the proxy
+   // Note that req.CheckBadStatusCode is already false by default.
 
-   req.Get("https://httpbin.org/get").ToString(); // Sending a GET request without any parameters
+   req.Send(HttpMethod.GET, new Uri("https://httpbin.org/get")).ToString(); // Sending a GET request without any parameters
+   // Also note that the example above doesn't contain any HttpContent because we don't need any.
    
+   // DEPRECATED USE OF THE PARAMETERS IN A REQUEST, NEEDS TO BE UPDATED :
    req.AddParam("email", "erruption.selly@gmail.com");
    req.AddParam("password", "c0ns1d3rD0nat1ngM3!");
-   
-   req.Post("https://httpbin.org/post").ToString(); // Sending a POST request with parameters "email" and "password".
+
+   req.Send(HttpMethod.POST, new Uri("https://httpbin.org/post")).ToString(); // Sending a POST request with parameters "email" and "password".
 }
 </pre>
