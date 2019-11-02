@@ -1,8 +1,8 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.4.2
+Current version : 3.4.2.1
 # Changelog :
-Too long, view the release info for more details.
+- **Fixing a critical bug with the TLS version 1.3 support, the library now uses TLS version 1.2 and is reverted back to .NET Framework 4.5.**
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
