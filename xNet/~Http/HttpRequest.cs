@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -1580,24 +1580,13 @@ namespace Better_xNet
             KeepAlive = true;
             AllowAutoRedirect = true;
             EnableEncodingContent = true;
-
             _response = new HttpResponse(this);
         }
 
         private Uri GetRequestAddress(Uri baseAddress, Uri address)
         {
-            var requestAddress = address;
-
-            if (baseAddress == null)
-            {
-                var uriBuilder = new UriBuilder(address.OriginalString);
-                requestAddress = uriBuilder.Uri;
-            }
-            else
-            {
-                Uri.TryCreate(baseAddress, address, out requestAddress);
-            }
-
+            Uri requestAddress = address;
+            if (baseAddress == null) requestAddress = new UriBuilder(address.OriginalString).Uri; else Uri.TryCreate(baseAddress, address, out requestAddress);
             return requestAddress;
         }
 
@@ -1610,42 +1599,26 @@ namespace Better_xNet
 
             CloseConnectionIfNeeded();
 
-            var previousAddress = Address;
+            Uri previousAddress = Address;
             Address = address;
 
-            var createdNewConnection = false;
-            try
-            {
-                createdNewConnection = TryCreateConnectionOrUseExisting(address, previousAddress);
-            }
+            bool createdNewConnection;
+            try { createdNewConnection = TryCreateConnectionOrUseExisting(address, previousAddress); }
             catch (HttpException ex)
             {
-                if (CanReconnect())
-                    return ReconnectAfterFail();
-
+                if (CanReconnect()) return ReconnectAfterFail();
                 throw;
             }
 
-            if (createdNewConnection)
-                _keepAliveRequestCount = 1;
-            else
-                _keepAliveRequestCount++;
+            if (createdNewConnection) _keepAliveRequestCount = 1; else _keepAliveRequestCount++;
 
             #region Отправка запроса
 
-            try
-            {
-                SendRequestData(method);
-            }
-            catch (SecurityException ex)
-            {
-                throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
-            }
+            try { SendRequestData(method); }
+            catch (SecurityException ex) { throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure); }
             catch (IOException ex)
             {
-                if (CanReconnect())
-                    return ReconnectAfterFail();
-
+                if (CanReconnect()) return ReconnectAfterFail();
                 throw NewHttpException(Resources.HttpException_FailedSendRequest, ex, HttpExceptionStatus.SendFailure);
             }
 
@@ -1653,27 +1626,19 @@ namespace Better_xNet
 
             #region Загрузка заголовков ответа
 
-            try
-            {
-                ReceiveResponseHeaders(method);
-            }
+            try { ReceiveResponseHeaders(method); }
             catch (HttpException ex)
             {
-                if (CanReconnect())
-                    return ReconnectAfterFail();
-
+                if (CanReconnect()) return ReconnectAfterFail();
                 // Если сервер оборвал постоянное соединение вернув пустой ответ, то пробуем подключиться заново.
                 // Он мог оборвать соединение потому, что достигнуто максимально допустимое кол-во запросов или вышло время простоя.
-                if (KeepAlive && !_keepAliveReconnected && !createdNewConnection && ex.EmptyMessageBody)
-                    return KeepAliveReconect();
-
+                if (KeepAlive && !_keepAliveReconnected && !createdNewConnection && ex.EmptyMessageBody) return KeepAliveReconect();
                 throw;
             }
 
             #endregion
 
             _response.ReconnectCount = _reconnectCount;
-
             _reconnectCount = 0;
             _keepAliveReconnected = false;
             _whenConnectionIdle = DateTime.Now;
@@ -1684,13 +1649,10 @@ namespace Better_xNet
 
             if (AllowAutoRedirect && _response.HasRedirect)
             {
-                if (++_redirectionCount > _maximumAutomaticRedirections)
-                    throw NewHttpException(Resources.HttpException_LimitRedirections);
-
+                if (++_redirectionCount > _maximumAutomaticRedirections) throw NewHttpException(Resources.HttpException_LimitRedirections);
                 ClearRequestData();
                 return Request(HttpMethod.GET, _response.RedirectAddress, null);
             }
-
             _redirectionCount = 0;
 
             #endregion

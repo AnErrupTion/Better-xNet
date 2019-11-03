@@ -608,19 +608,20 @@ namespace Better_xNet
 
             #endregion
 
-            MemoryStream m = new MemoryStream((ContentLength == -1) ? 0 : ContentLength);
-
+            MemoryTributary m = new MemoryTributary((ContentLength == -1) ? 0 : ContentLength);            
             try { foreach (BytesWraper b in GetMessageBodySource()) m.Write(b.Value, 0, b.Length); }
             catch (Exception ex)
             {
                 HasError = true;
                 if (ex is IOException || ex is InvalidOperationException) throw NewHttpException(Resources.HttpException_FailedReceiveMessageBody, ex);
             }
-
-            if (ConnectionClosed()) _request.Dispose();
-
+            if (ConnectionClosed())
+            {
+                _request.Dispose();
+                m.Dispose();
+            }
             MessageBodyLoaded = true;
-            return GetCharacterSet().GetString(m.GetBuffer(), 0, Convert.ToInt32(m.Length));
+            return GetCharacterSet().GetString(m.ToArray(), 0, Convert.ToInt32(m.Length));
         }
 
         /// <summary>

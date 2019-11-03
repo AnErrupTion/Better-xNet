@@ -15,15 +15,11 @@ namespace Better_xNet
         /// <value>Значение по умолчанию — <see langword="false"/>.</value>
         public bool IsLocked { get; set; }
 
-
         /// <summary>
         /// Инициализирует новый экземпляр класса <see cref="CookieDictionary"/>.
         /// </summary>
         /// <param name="isLocked">Указывает, закрыты ли куки для редактирования.</param>
-        public CookieStorage(bool isLocked = false) : base(StringComparer.OrdinalIgnoreCase)
-        {
-            IsLocked = isLocked;
-        }
+        public CookieStorage(bool isLocked = false) : base(StringComparer.OrdinalIgnoreCase) { IsLocked = isLocked; }
 
         /// <summary>
         /// Возвращает строку, состоящую из имён и значений куки.

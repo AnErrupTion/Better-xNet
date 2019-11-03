@@ -334,7 +334,7 @@ namespace Better_xNet
                 password = values[3];
             }
 
-            return ProxyHelper.CreateProxyClient(pt, host, port, username, password);
+            return ProxyHelper.CreateProxyClient(pt, host + ":" + port, username, password);
         }
 
         /// <summary>
@@ -388,7 +388,7 @@ namespace Better_xNet
 
             try
             {
-                result = ProxyHelper.CreateProxyClient(pt, host, port, username, password);
+                result = ProxyHelper.CreateProxyClient(pt, host + ":" + port, username, password);
             }
             catch (InvalidOperationException)
             {
