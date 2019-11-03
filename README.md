@@ -28,5 +28,12 @@ using (HttpRequest req = new HttpRequest())
    req.AddParam("password", "c0ns1d3rD0nat1ngM3!");
 
    req.Send(HttpMethod.POST, new Uri("https://httpbin.org/post")).ToString(); // Sending a POST request with parameters "email" and "password".
+   
+   // Updated use of the parameters in a request :
+   // -- Normal :
+   req.Send(HttpMethod.POST, new Uri("https://httpbin.org/post"), new BytesContent(Encoding.UTF8.GetBytes("email=ichicharka@gmail.com&password=c0ns1d3rD0nat1ngM3!")).ToString();
+   
+   // -- JSON :
+   req.Send(HttpMethod.POST, new Uri("https://httpbin.org/post"), new BytesContent(Encoding.UTF8.GetBytes("{\"email\":\"ichicharka@gmail.com\",\"password\":\"c0ns1d3rD0nat1ngM3!\"}"))).ToString()
 }
 </pre>
