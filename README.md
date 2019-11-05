@@ -1,8 +1,11 @@
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
-Current version : 3.4.2.1
+Current version : 3.4.3
 # Changelog :
-- **Fixing a critical bug with the TLS version 1.3 support, the library now uses TLS version 1.2 and is reverted back to .NET Framework 4.5.**
+- Optimized the HttpUtils's GetPageSource() and TestWebsite() functions.
+- Made some minor changes in the CookieStorage class and HttpRequest.Request() function (private).
+- Now using an improved version of the MemoryStream class called MemoryTributary and edited it to match xNet's needs. This version is used in the HttpResponse.ToString() method.
+- Also made some minor changes in the ProxyHelper and ProxyClient.
 
 # Donation :
 Is this library useful to you? If yes, then you should consider donating me (even a little) so I can get myself a cup of coffee!
