@@ -1,3 +1,5 @@
+# NOTE : This project is currently in pause for a moment. If you want a more stable HTTP library, check out my other project named ReqDotNet.
+
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
 Current version : 3.4.3
