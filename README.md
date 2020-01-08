@@ -1,4 +1,8 @@
-# NOTE : This project is currently in pause for a moment. If you want a more stable HTTP library, check out my other project named ReqDotNet.
+# NOTE : This project is currently dead. If you want a more stable HTTP library, check out my other project named ReqDotNet.
+
+# Thanks everyone!
+Thanks to everyone for starring my xNet fork, it was my biggest C# project back in the days. Now, I'm making other projects that interests me even more.
+You can fork my project if you want to keep it alive! :D
 
 Better-xNet - a fork of the original xNet C# library, which includes all of these fixes & more :
 
